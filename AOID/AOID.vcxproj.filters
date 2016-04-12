@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\uisource">
+      <UniqueIdentifier>{7b32919f-25c9-4644-8b92-87d8b533b53c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\uisource">
+      <UniqueIdentifier>{f4b19942-1093-4c3b-8f31-0862c1ee47f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\otheruisource">
+      <UniqueIdentifier>{8f81fe74-2b57-450c-aeba-64db3f272962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\otheruisource">
+      <UniqueIdentifier>{abac588a-3be2-41ed-bc3d-4670f3b8e96c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\supportsource">
+      <UniqueIdentifier>{9eba1b72-f267-438c-895e-b1e9c385c74f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\supportsource">
+      <UniqueIdentifier>{1d8361ad-4045-42ed-9ae7-31727bc14cf3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\AOID.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\AOIDDoc.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\AOID.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\Toolbar.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\Toolbar256.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\1_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\2_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\3_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\4_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\5_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\6_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\bitmap3.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\bitmap4.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\bitmap5.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\block.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\del.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\delold.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\down.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\EMPTY.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\end.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\endold.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\enter.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F1_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F2.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F2_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F3.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F3_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F3OLD.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F4.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F4_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F4OLD.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F5.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F5_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F6.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F6_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F7.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F7_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F8.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F8_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F9.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F9_DOWN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\F10.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\fast.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\Fix_HZ.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\fixtool.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\FixXY1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\FixXY2.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\FixXY3.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\FixXY4.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\FixXY5.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\FixXY6.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\FixXY7.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\holebk.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\home.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\ins.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\Keyboard.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\Left.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\load.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\lock.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\pagedown.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\pageup.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\right.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\RUN.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\slow.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\Spindle_SwitchOff.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\Spindle_SwitchOn.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\T0.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\Tacho.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\test.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\tool.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\toolbar1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\up.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\XYZ.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\停止_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\允许_副本.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\钻孔.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="AOID.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="menuimage\bmp00001.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="menuimage\lena.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AOID.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AOIDDoc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AOIDView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\InfoPaneWnd.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\InfoView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\OpPaneWnd.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\AnalysisView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\SoftWareInfoView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\LicenseView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\UserAdminView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\MachineRecordView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\FileAndContentsView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\MastProgInView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\SubProgInView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\CameraImageView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\UserTokenView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\InputPortView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\OutputPortView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\ServeView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\FocusView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\LightView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\MFunctionView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\CameraPosView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\OrigFunctionView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\InchFunctionView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="otheruisource\StaticButton.h">
+      <Filter>头文件\otheruisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\MenuPaneWnd.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\ProgPaneWnd.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\ToolView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\ToolPaneWnd.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\ProgressView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\ProgView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="winpara.h">
+      <Filter>头文件\otheruisource</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdView.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="ADIOtype.h">
+      <Filter>头文件\otheruisource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\ToolViewAll.h">
+      <Filter>头文件\uisource</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\ImageAnalysis.h">
+      <Filter>头文件\supportsource</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\ImageProcess.h">
+      <Filter>头文件\supportsource</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\CV_picture.h">
+      <Filter>头文件\supportsource</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\CvvImage.h">
+      <Filter>头文件\supportsource</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\CncControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AOID.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AOIDDoc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AOIDView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\InfoPaneWnd.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\InfoView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\OpPaneWnd.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\AnalysisView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\SoftWareInfoView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\LicenseView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\UserAdminView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\FileAndContentsView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\MachineRecordView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\MastProgInView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\SubProgInView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\CameraImageView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\UserTokenView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\InputPortView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\OutputPortView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\ServeView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\FocusView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\LightView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\MFunctionView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\InchFunctionView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\OrigFunctionView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\CameraPosView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="otheruisource\StaticButton.cpp">
+      <Filter>源文件\otheruisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\MenuPaneWnd.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\ProgPaneWnd.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\ToolPaneWnd.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\ToolView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\ProgressView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\ProgView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdView.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\ToolViewAll.cpp">
+      <Filter>源文件\uisource</Filter>
+    </ClCompile>
+    <ClCompile Include="supportsource\ImageAnalysis.cpp">
+      <Filter>源文件\supportsource</Filter>
+    </ClCompile>
+    <ClCompile Include="supportsource\ImageProcess.cpp">
+      <Filter>源文件\supportsource</Filter>
+    </ClCompile>
+    <ClCompile Include="supportsource\CV_picture.cpp">
+      <Filter>源文件\supportsource</Filter>
+    </ClCompile>
+    <ClCompile Include="supportsource\CvvImage.cpp">
+      <Filter>源文件\supportsource</Filter>
+    </ClCompile>
+    <ClCompile Include="supportsource\Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="supportsource\CncControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AOID.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="AOID.idl">
+      <Filter>源文件</Filter>
+    </Midl>
+  </ItemGroup>
+</Project>
