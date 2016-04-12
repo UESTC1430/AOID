@@ -15,10 +15,9 @@ _UpgradeReport_Files/
 AOID/Debug/
 *.idl
 *.rc
-*rgs
+*.rgs
 *.APS
 *.vcxproj
-*.idl
 *.ilk
 *.mk
 *.def
