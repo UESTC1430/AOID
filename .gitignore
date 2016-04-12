@@ -4,7 +4,7 @@
 #build/ # 忽略 build/ 目录下的所有文件
 #doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 *.XML
-AOID.sln
+#AOID.sln
 AOID.sdf
 AOID.suo
 Debug/
@@ -12,6 +12,7 @@ Debug/
 ipch/
 _UpgradeReport_Files/
 *.exe
+AOID/Debug/
 *.idl
 *.rc
 *rgs
@@ -22,3 +23,4 @@ _UpgradeReport_Files/
 *.mk
 *.def
 *.cd
+*.opensdf
