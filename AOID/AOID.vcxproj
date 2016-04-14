@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="AOID|Win32">
+      <Configuration>AOID</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{37E2FA83-5539-45F5-9D9C-835D2F54B2C1}</ProjectGuid>
+    <RootNamespace>AOID</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfAtl>Static</UseOfAtl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfAtl>Static</UseOfAtl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfAtl>Static</UseOfAtl>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>E:\Program Files(x86)\OpenCV 2.4.10\opencv\build\x64\vc10\lib;C:\DALSA\Spyder3\DALSA SDK\Libraries;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>E:\Program Files(x86)\OpenCV 2.4.10\opencv\build\x64\vc10\lib;C:\DALSA\Spyder3\DALSA SDK\Libraries;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderOutputFile>.\Debug\AOID.pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <AdditionalDependencies>opencv_ml2410d.lib;opencv_calib3d2410d.lib;opencv_contrib2410d.lib;opencv_core2410d.lib;opencv_features2d2410d.lib;opencv_flann2410d.lib;opencv_gpu2410d.lib;opencv_highgui2410d.lib;opencv_imgproc2410d.lib;opencv_legacy2410d.lib;opencv_objdetect2410d.lib;opencv_ts2410d.lib;opencv_video2410d.lib;opencv_nonfree2410d.lib;opencv_ocl2410d.lib;opencv_photo2410d.lib;opencv_stitching2410d.lib;opencv_superres2410d.lib;opencv_videostab2410d.lib;opencv_objdetect2410.lib;opencv_ts2410.lib;opencv_video2410.lib;opencv_nonfree2410.lib;opencv_ocl2410.lib;opencv_photo2410.lib;opencv_stitching2410.lib;opencv_superres2410.lib;opencv_videostab2410.lib;opencv_calib3d2410.lib;opencv_contrib2410.lib;opencv_core2410.lib;opencv_features2d2410.lib;opencv_flann2410.lib;opencv_gpu2410.lib;opencv_highgui2410.lib;opencv_imgproc2410.lib;opencv_legacy2410.lib;opencv_ml2410.lib;SpyderGigE.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderOutputFile>.\Debug\AOID.pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <AdditionalDependencies>opencv_ml2410d.lib;opencv_calib3d2410d.lib;opencv_contrib2410d.lib;opencv_core2410d.lib;opencv_features2d2410d.lib;opencv_flann2410d.lib;opencv_gpu2410d.lib;opencv_highgui2410d.lib;opencv_imgproc2410d.lib;opencv_legacy2410d.lib;opencv_objdetect2410d.lib;opencv_ts2410d.lib;opencv_video2410d.lib;opencv_nonfree2410d.lib;opencv_ocl2410d.lib;opencv_photo2410d.lib;opencv_stitching2410d.lib;opencv_superres2410d.lib;opencv_videostab2410d.lib;opencv_objdetect2410.lib;opencv_ts2410.lib;opencv_video2410.lib;opencv_nonfree2410.lib;opencv_ocl2410.lib;opencv_photo2410.lib;opencv_stitching2410.lib;opencv_superres2410.lib;opencv_videostab2410.lib;opencv_calib3d2410.lib;opencv_contrib2410.lib;opencv_core2410.lib;opencv_features2d2410.lib;opencv_flann2410.lib;opencv_gpu2410.lib;opencv_highgui2410.lib;opencv_imgproc2410.lib;opencv_legacy2410.lib;opencv_ml2410.lib;SpyderGigE.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <RegisterOutput>true</RegisterOutput>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="AOID.rgs" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="menuimage\1.bmp" />
+    <None Include="menuimage\1_副本.bmp" />
+    <None Include="menuimage\2_副本.bmp" />
+    <None Include="menuimage\3_副本.bmp" />
+    <None Include="menuimage\4_副本.bmp" />
+    <None Include="menuimage\5_副本.bmp" />
+    <None Include="menuimage\6_副本.bmp" />
+    <None Include="menuimage\bitmap1.bmp" />
+    <None Include="menuimage\bitmap2.bmp" />
+    <None Include="menuimage\bitmap3.bmp" />
+    <None Include="menuimage\bitmap4.bmp" />
+    <None Include="menuimage\bitmap5.bmp" />
+    <None Include="menuimage\block.bmp" />
+    <None Include="menuimage\bmp00001.bmp" />
+    <None Include="menuimage\del.bmp" />
+    <None Include="menuimage\delold.bmp" />
+    <None Include="menuimage\down.bmp" />
+    <None Include="menuimage\EMPTY.bmp" />
+    <None Include="menuimage\end.bmp" />
+    <None Include="menuimage\endold.bmp" />
+    <None Include="menuimage\enter.bmp" />
+    <None Include="menuimage\F1.bmp" />
+    <None Include="menuimage\F10.bmp" />
+    <None Include="menuimage\F1_DOWN.bmp" />
+    <None Include="menuimage\F2.bmp" />
+    <None Include="menuimage\F2_DOWN.bmp" />
+    <None Include="menuimage\F3.bmp" />
+    <None Include="menuimage\F3OLD.bmp" />
+    <None Include="menuimage\F3_DOWN.bmp" />
+    <None Include="menuimage\F4.bmp" />
+    <None Include="menuimage\F4OLD.bmp" />
+    <None Include="menuimage\F4_DOWN.bmp" />
+    <None Include="menuimage\F5.bmp" />
+    <None Include="menuimage\F5_DOWN.bmp" />
+    <None Include="menuimage\F6.bmp" />
+    <None Include="menuimage\F6_DOWN.bmp" />
+    <None Include="menuimage\F7.bmp" />
+    <None Include="menuimage\F7_DOWN.bmp" />
+    <None Include="menuimage\F8.bmp" />
+    <None Include="menuimage\F8_DOWN.bmp" />
+    <None Include="menuimage\F9.bmp" />
+    <None Include="menuimage\F9_DOWN.bmp" />
+    <None Include="menuimage\fast.bmp" />
+    <None Include="menuimage\fixtool.bmp" />
+    <None Include="menuimage\FixXY1.bmp" />
+    <None Include="menuimage\FixXY2.bmp" />
+    <None Include="menuimage\FixXY3.bmp" />
+    <None Include="menuimage\FixXY4.bmp" />
+    <None Include="menuimage\FixXY5.bmp" />
+    <None Include="menuimage\FixXY6.bmp" />
+    <None Include="menuimage\FixXY7.bmp" />
+    <None Include="menuimage\Fix_HZ.bmp" />
+    <None Include="menuimage\holebk.bmp" />
+    <None Include="menuimage\home.bmp" />
+    <None Include="menuimage\ins.bmp" />
+    <None Include="menuimage\Keyboard.bmp" />
+    <None Include="menuimage\Left.bmp" />
+    <None Include="menuimage\lena.bmp" />
+    <None Include="menuimage\load.bmp" />
+    <None Include="menuimage\lock.bmp" />
+    <None Include="menuimage\pagedown.bmp" />
+    <None Include="menuimage\pageup.bmp" />
+    <None Include="menuimage\right.bmp" />
+    <None Include="menuimage\RUN.bmp" />
+    <None Include="menuimage\slow.bmp" />
+    <None Include="menuimage\Spindle_SwitchOff.bmp" />
+    <None Include="menuimage\Spindle_SwitchOn.bmp" />
+    <None Include="menuimage\T0.bmp" />
+    <None Include="menuimage\Tacho.bmp" />
+    <None Include="menuimage\test.bmp" />
+    <None Include="menuimage\tool.bmp" />
+    <None Include="menuimage\toolbar1.bmp" />
+    <None Include="menuimage\up.bmp" />
+    <None Include="menuimage\XYZ.bmp" />
+    <None Include="menuimage\停止_副本.bmp" />
+    <None Include="menuimage\允许_副本.bmp" />
+    <None Include="menuimage\钻孔.bmp" />
+    <None Include="ReadMe.txt" />
+    <None Include="res\AOID.ico" />
+    <None Include="res\AOID.rc2" />
+    <None Include="res\AOIDDoc.ico" />
+    <None Include="res\bitmap1.bmp" />
+    <None Include="res\bitmap2.bmp" />
+    <None Include="res\Toolbar.bmp" />
+    <None Include="res\Toolbar256.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ADIOtype.h" />
+    <ClInclude Include="AOID.h" />
+    <ClInclude Include="AOIDDoc.h" />
+    <ClInclude Include="AOIDView.h" />
+    <ClInclude Include="CmdView.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="otheruisource\StaticButton.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="supportsource\Camera.h" />
+    <ClInclude Include="supportsource\CncControl.h" />
+    <ClInclude Include="supportsource\CvvImage.h" />
+    <ClInclude Include="supportsource\CV_picture.h" />
+    <ClInclude Include="supportsource\ImageAnalysis.h" />
+    <ClInclude Include="supportsource\ImageProcess.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="uisource\AnalysisView.h" />
+    <ClInclude Include="uisource\CameraImageView.h" />
+    <ClInclude Include="uisource\CameraPosView.h" />
+    <ClInclude Include="uisource\FileAndContentsView.h" />
+    <ClInclude Include="uisource\FocusView.h" />
+    <ClInclude Include="uisource\InchFunctionView.h" />
+    <ClInclude Include="uisource\InfoPaneWnd.h" />
+    <ClInclude Include="uisource\InfoView.h" />
+    <ClInclude Include="uisource\InputPortView.h" />
+    <ClInclude Include="uisource\LicenseView.h" />
+    <ClInclude Include="uisource\LightView.h" />
+    <ClInclude Include="uisource\MachineRecordView.h" />
+    <ClInclude Include="uisource\MastProgInView.h" />
+    <ClInclude Include="uisource\MenuPaneWnd.h" />
+    <ClInclude Include="uisource\MFunctionView.h" />
+    <ClInclude Include="uisource\OpPaneWnd.h" />
+    <ClInclude Include="uisource\OrigFunctionView.h" />
+    <ClInclude Include="uisource\OutputPortView.h" />
+    <ClInclude Include="uisource\ProgPaneWnd.h" />
+    <ClInclude Include="uisource\ProgressView.h" />
+    <ClInclude Include="uisource\ProgView.h" />
+    <ClInclude Include="uisource\ServeView.h" />
+    <ClInclude Include="uisource\SoftWareInfoView.h" />
+    <ClInclude Include="uisource\SubProgInView.h" />
+    <ClInclude Include="uisource\ToolPaneWnd.h" />
+    <ClInclude Include="uisource\ToolView.h" />
+    <ClInclude Include="uisource\ToolViewAll.h" />
+    <ClInclude Include="uisource\UserAdminView.h" />
+    <ClInclude Include="uisource\UserTokenView.h" />
+    <ClInclude Include="winpara.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AOID.cpp" />
+    <ClCompile Include="AOIDDoc.cpp" />
+    <ClCompile Include="AOIDView.cpp" />
+    <ClCompile Include="CmdView.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="otheruisource\StaticButton.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="supportsource\Camera.cpp" />
+    <ClCompile Include="supportsource\CncControl.cpp" />
+    <ClCompile Include="supportsource\CvvImage.cpp" />
+    <ClCompile Include="supportsource\CV_picture.cpp" />
+    <ClCompile Include="supportsource\ImageAnalysis.cpp" />
+    <ClCompile Include="supportsource\ImageProcess.cpp" />
+    <ClCompile Include="uisource\AnalysisView.cpp" />
+    <ClCompile Include="uisource\CameraImageView.cpp" />
+    <ClCompile Include="uisource\CameraPosView.cpp" />
+    <ClCompile Include="uisource\FileAndContentsView.cpp" />
+    <ClCompile Include="uisource\FocusView.cpp" />
+    <ClCompile Include="uisource\InchFunctionView.cpp" />
+    <ClCompile Include="uisource\InfoPaneWnd.cpp" />
+    <ClCompile Include="uisource\InfoView.cpp" />
+    <ClCompile Include="uisource\InputPortView.cpp" />
+    <ClCompile Include="uisource\LicenseView.cpp" />
+    <ClCompile Include="uisource\LightView.cpp" />
+    <ClCompile Include="uisource\MachineRecordView.cpp" />
+    <ClCompile Include="uisource\MastProgInView.cpp" />
+    <ClCompile Include="uisource\MenuPaneWnd.cpp" />
+    <ClCompile Include="uisource\MFunctionView.cpp" />
+    <ClCompile Include="uisource\OpPaneWnd.cpp" />
+    <ClCompile Include="uisource\OrigFunctionView.cpp" />
+    <ClCompile Include="uisource\OutputPortView.cpp" />
+    <ClCompile Include="uisource\ProgPaneWnd.cpp" />
+    <ClCompile Include="uisource\ProgressView.cpp" />
+    <ClCompile Include="uisource\ProgView.cpp" />
+    <ClCompile Include="uisource\ServeView.cpp" />
+    <ClCompile Include="uisource\SoftWareInfoView.cpp" />
+    <ClCompile Include="uisource\SubProgInView.cpp" />
+    <ClCompile Include="uisource\ToolPaneWnd.cpp" />
+    <ClCompile Include="uisource\ToolView.cpp" />
+    <ClCompile Include="uisource\ToolViewAll.cpp" />
+    <ClCompile Include="uisource\UserAdminView.cpp" />
+    <ClCompile Include="uisource\UserTokenView.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AOID.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="AOID.idl">
+      <MkTypLibCompatible Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</MkTypLibCompatible>
+      <MkTypLibCompatible Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">false</MkTypLibCompatible>
+      <TargetEnvironment Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Win32</TargetEnvironment>
+      <TargetEnvironment Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">Win32</TargetEnvironment>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_i.h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">$(ProjectName)_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_i.c</InterfaceIdentifierFileName>
+      <InterfaceIdentifierFileName Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">$(ProjectName)_i.c</InterfaceIdentifierFileName>
+      <GenerateStublessProxies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateStublessProxies>
+      <GenerateStublessProxies Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">true</GenerateStublessProxies>
+      <TypeLibraryName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(ProjectName).tlb</TypeLibraryName>
+      <TypeLibraryName Condition="'$(Configuration)|$(Platform)'=='AOID|Win32'">$(IntDir)$(ProjectName).tlb</TypeLibraryName>
+      <MkTypLibCompatible Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</MkTypLibCompatible>
+      <TargetEnvironment Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Win32</TargetEnvironment>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AOID_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AOID_i.c</InterfaceIdentifierFileName>
+      <GenerateStublessProxies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateStublessProxies>
+      <TypeLibraryName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(ProjectName).tlb</TypeLibraryName>
+    </Midl>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="AOID.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
