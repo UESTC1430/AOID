@@ -13,7 +13,6 @@
 #include "CameraImageView.h"
 #include "ADIOtype.h"
 
-
 #pragma once
 
 class CMainFrame : public CFrameWndEx
@@ -35,6 +34,7 @@ public:
 	UserDatastruct  userdatastruct;//当前用户信息结构体实例化
 	bool cmdviewflag;
 //	Camera m_camera;
+	UserMarkFlag  m_usermarkflag;
 
 // 特性
 public:

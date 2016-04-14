@@ -11,11 +11,8 @@ ipch/
 _UpgradeReport_Files/
 *.exe
 AOID/Debug/
-*.idl
-*.rc
 *.rgs
 *.APS
-*.vcxproj
 *.ilk
 *.mk
 *.def

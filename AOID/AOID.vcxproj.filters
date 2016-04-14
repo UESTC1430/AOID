@@ -425,10 +425,10 @@
       <Filter>头文件\supportsource</Filter>
     </ClInclude>
     <ClInclude Include="supportsource\Camera.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\supportsource</Filter>
     </ClInclude>
     <ClInclude Include="supportsource\CncControl.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\supportsource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -553,10 +553,10 @@
       <Filter>源文件\supportsource</Filter>
     </ClCompile>
     <ClCompile Include="supportsource\Camera.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\supportsource</Filter>
     </ClCompile>
     <ClCompile Include="supportsource\CncControl.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\supportsource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

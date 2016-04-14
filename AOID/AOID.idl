@@ -1,0 +1,17 @@
+// AOID.idl : AOID 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(AOID.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(DDFAD0A3-BE8C-4A61-9D5C-4EEB705514EF),
+	version(1.0)	
+]
+library AOIDLib
+{
+	importlib("stdole2.tlb");
+};
