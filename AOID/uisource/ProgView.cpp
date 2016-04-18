@@ -6,6 +6,7 @@
 #include "ProgView.h"
 #include "MainFrm.h"
 UINT CNCMOVE2(LPVOID pParam);
+#define  SW_length 240
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -292,40 +293,7 @@ void CProgView::OnF6()
 	m_TreeF6.ShowWindow(SW_SHOW);
 	m_TreeF7.ShowWindow(SW_HIDE);
 	m_TreeF8.ShowWindow(SW_HIDE);
-	
-//	HTREEITEM hItem ;
-//	DWORD itemdata;
 	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
-	/*hItem = m_TreeF6.GetSelectedItem();
-	itemdata= m_TreeF6.GetItemData(hItem);
-	m_TreeF6.Select(hItem,TVGN_DROPHILITE);//使选择的菜单项显示为选择状态
-	pwnd->m_pOpPaneWnd->SwitchToView(itemdata);*/
-	/*	switch(itemdata)
-	{
-	case VIEW_F6SUBITEM1:
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->viewflag=1;
-	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_F6SUBITEM1);
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->ViewChange();
-	break;
-	case VIEW_F6SUBITEM2:
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->viewflag=2;
-	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_F6SUBITEM1);
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->ViewChange();
-	break;
-	case VIEW_F6SUBITEM3:
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->viewflag=3;
-	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_F6SUBITEM1);
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->ViewChange();
-	break;
-	case VIEW_F6SUBITEM9:
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->viewflag=4;
-	pwnd->m_pOpPaneWnd->m_pF6SubItem1View->ViewChange();
-	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_F6SUBITEM1);
-	break;
-	default:
-	pwnd->m_pOpPaneWnd->SwitchToView(itemdata);
-	break;
-}*/
 	fbtnnum=6;
 	pwnd->ShowCmdView(false);
 }
@@ -336,24 +304,19 @@ void CProgView::OnF7()
 	DWORD itemdata;
 	hItem = m_TreeF3.GetSelectedItem();
 	itemdata= m_TreeF3.GetItemData(hItem);
-	//m_TreeF7.Select(hItem,TVGN_DROPHILITE);//使选择的菜单项显示为选择状态
-	//pwnd->m_pOpPaneWnd->SwitchToView(itemdata);
 	m_TreeF3.Select(hItem,TVGN_DROPHILITE);
 	pwnd->m_pOpPaneWnd->SwitchToView(itemdata);
 	fbtnnum=7;
 	pwnd->ShowCmdView(false);
-	/*pwnd->m_camera.GetConnect();
-	//**********************************************图像扫描线程
-	CWinThread *showview= AfxBeginThread(CNCMOVE2,(LPVOID)(pwnd));//发送运动命令
-	pwnd->m_camera.GetPicture();//摄像头打开等待触发，在图片填满时完成
-	//*******************************************************************************
+	if(false==pwnd->m_camera.GetConnect())
+		return;
+	CWinThread *showview= AfxBeginThread(CNCMOVE2,(LPVOID)(pwnd));
+	pwnd->m_camera.GetPicture();
 	pwnd->m_camera.CloseCamera();	
-	pwnd->m_cnccontrol.XYMove(-200,0,"REL");//机床返回扫描初始点
+	pwnd->m_cnccontrol.XYMove(-SW_length,0,"REL");
 	pwnd->m_cnccontrol.CheckCncState();
 	if (pwnd->m_cnccontrol.cnccondition.XD==1&&pwnd->m_cnccontrol.cnccondition.YD==1&&pwnd->m_cnccontrol.cnccondition.YD)
-	{
 		F7State=true;
-	}*/
 }
 void CProgView::OnF8() 
 {
@@ -1410,4 +1373,11 @@ void CProgView::HighLightFnButton(int num)
 	default:
 		break;
 	}
+}
+
+UINT CNCMOVE2(LPVOID pParam)
+{
+	CMainFrame * pwnd=(CMainFrame *)pParam;	
+	pwnd->m_cnccontrol.XYMove(SW_length,0,"REL");
+	return TRUE;
 }

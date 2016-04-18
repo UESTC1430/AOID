@@ -71,6 +71,10 @@ void CCameraImageView::OnGetPiont()
 void CCameraImageView::CameraimageShow()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	
+	DrawcvMat(pwnd->m_camera.img_sweep,IDC_CAMIMG,1);
+	imwrite("G:/扫描图.bmp",pwnd->m_camera.img_sweep);
 }
 
 
@@ -90,7 +94,9 @@ void CCameraImageView::OnBnClickedtest()
 {
 	// 跳转到测试用
 	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
-	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_TESTITEM);
+	pwnd->m_camera.img_sweep=imread("G:/采集实图.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR);
+	m_picture.ShowImage(pwnd->m_camera.img_sweep,0);
+	//DrawcvMat(	pwnd->m_camera.img_sweep,IDC_CAMIMG,1);
 }
 
 void CCameraImageView::DrawcvMat(Mat mat, UINT ID,bool flag)//显示mat在picture控件中
@@ -107,6 +113,11 @@ void CCameraImageView::DrawcvMat(Mat mat, UINT ID,bool flag)//显示mat在picture控
 		camscale=scale1;
 	dsize = Size(mat.cols*camscale,mat.rows*camscale);
 	resize(mat,img,dsize);
+	/*IplImage* drawing_ipl = &IplImage(img);
+	CvvImage Cvvimg;
+	Cvvimg.CopyOf(drawing_ipl);
+	// 将图片绘制到显示控件的指定区域内
+	Cvvimg.DrawToHDC( &rect );*/
 	int width,height,depth,channel;
 	width=img.cols;
 	height=img.rows;

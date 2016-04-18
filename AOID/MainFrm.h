@@ -10,6 +10,8 @@
 #include "ToolPaneWnd.h"
 #include "InfoPaneWnd.h"
 #include "ImageProcess.h"
+#include "Camera.h"
+#include "CncControl.h"
 #include "CameraImageView.h"
 #include "ADIOtype.h"
 
@@ -34,7 +36,8 @@ public:
 	CCameraImageView m_cameraimageview;
 	UserDatastruct  userdatastruct;//当前用户信息结构体实例化
 	bool cmdviewflag;
-//	Camera m_camera;
+	Camera m_camera;
+	CncControl m_cnccontrol;
 
 // 特性
 public:

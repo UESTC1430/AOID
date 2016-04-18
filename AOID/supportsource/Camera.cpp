@@ -45,7 +45,6 @@ bool Camera::GetPicture()
 {
 	CyUserBuffer userBuffer(NULL, 0);
 	CyUserBuffer userBuffer2(NULL,0);
-
 	camera->AllocateBuffer(userBuffer);
 	camera->AllocateBuffer(userBuffer2);
 	tempBuffer=userBuffer.GetBuffer();
