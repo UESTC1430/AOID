@@ -10,7 +10,7 @@
 
 #include "resource.h"       // 主符号
 #include "AOID_i.h"
-
+#include "MastProgInOut.h"
 
 // CAOIDApp:
 // 有关此类的实现，请参阅 AOID.cpp
@@ -32,6 +32,8 @@ public:
 // 实现
 	UINT  m_nAppLook;
 	BOOL  m_bHiColorIcons;
+	CMastProgInOut mastprog;//主程序对象
+
 //	CAOIDdatabase AOIDdatabase;//数据库对象
 	virtual void PreLoadState();
 	virtual void LoadCustomState();

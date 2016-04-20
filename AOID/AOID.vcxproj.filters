@@ -430,6 +430,9 @@
     <ClInclude Include="supportsource\CncControl.h">
       <Filter>头文件\supportsource</Filter>
     </ClInclude>
+    <ClInclude Include="supportsource\MastProgInOut.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AOID.cpp">
@@ -557,6 +560,9 @@
     </ClCompile>
     <ClCompile Include="supportsource\CncControl.cpp">
       <Filter>源文件\supportsource</Filter>
+    </ClCompile>
+    <ClCompile Include="supportsource\MastProgInOut.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -100,6 +100,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderOutputFile>.\Debug\AOID.pch</PrecompiledHeaderOutputFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -250,6 +251,7 @@
     <ClInclude Include="supportsource\CV_picture.h" />
     <ClInclude Include="supportsource\ImageAnalysis.h" />
     <ClInclude Include="supportsource\ImageProcess.h" />
+    <ClInclude Include="supportsource\MastProgInOut.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="uisource\AnalysisView.h" />
     <ClInclude Include="uisource\CameraImageView.h" />
@@ -300,6 +302,7 @@
     <ClCompile Include="supportsource\CV_picture.cpp" />
     <ClCompile Include="supportsource\ImageAnalysis.cpp" />
     <ClCompile Include="supportsource\ImageProcess.cpp" />
+    <ClCompile Include="supportsource\MastProgInOut.cpp" />
     <ClCompile Include="uisource\AnalysisView.cpp" />
     <ClCompile Include="uisource\CameraImageView.cpp" />
     <ClCompile Include="uisource\CameraPosView.cpp" />

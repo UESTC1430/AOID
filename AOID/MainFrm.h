@@ -18,6 +18,9 @@
 
 #pragma once
 
+//float matchscale;
+//float matchangle;
+
 class CMainFrame : public CFrameWndEx
 {
 	
@@ -39,10 +42,15 @@ public:
 <<<<<<< HEAD
 //	Camera m_camera;
 	UserMarkFlag  m_usermarkflag;
+<<<<<<< HEAD
 =======
 	Camera m_camera;
 	CncControl m_cnccontrol;
 >>>>>>> origin/master
+=======
+	
+
+>>>>>>> release
 
 // Ьиад
 public:

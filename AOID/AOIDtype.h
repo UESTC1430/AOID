@@ -391,7 +391,16 @@ typedef struct AXISPOSITION
 	double Z1POS;//表示Z1轴的位置
 	double Z2POS;//表示Z2轴的位置
 }AxisPosition;
-
+//______________________________________________zns0414机床状态结构体
+typedef struct AOIDCONDITION
+{
+	int XD;//判断运动是否完成
+	int YD;
+	int ZD;
+	float XPOS;//位置
+	float YPOS;
+	float ZPOS;
+}AOIDCondition;
 
 typedef struct CIRCLESTRUCT
 {

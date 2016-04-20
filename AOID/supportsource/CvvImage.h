@@ -48,8 +48,12 @@ public:
 protected:  
 	IplImage*  m_img;  
 };  
+<<<<<<< HEAD
 namespace cv2
 {
     typedef CvvImage CImage;  
 }
+=======
+//typedef CvvImage CImage;  
+>>>>>>> release
 #endif  
