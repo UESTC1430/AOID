@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 HKCR
 {
 	NoRemove AppID
@@ -9,3 +10,16 @@ HKCR
 		}
 	}
 }
+=======
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'AOID'
+				'AOID.EXE'
+				{
+			val AppID = s '%APPID%'
+		}
+	}
+}
+>>>>>>> origin/master

@@ -23,6 +23,7 @@ CCameraImageView::~CCameraImageView()
 void CCameraImageView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_CAMIMG, m_camimg);
 }
 
 BEGIN_MESSAGE_MAP(CCameraImageView, CFormView)
@@ -71,6 +72,9 @@ void CCameraImageView::OnGetPiont()
 void CCameraImageView::CameraimageShow()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	DrawcvMat(pwnd->m_camera.img_sweep,IDC_CAMIMG,1);
+	imwrite("G:/扫描图.bmp",pwnd->m_camera.img_sweep);
 }
 
 
@@ -90,13 +94,17 @@ void CCameraImageView::OnBnClickedtest()
 {
 	// 跳转到测试用
 	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
-	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_TESTITEM);
+	pwnd->m_camera.img_sweep=imread("G:/采集实图.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR);
+	//DrawcvMat(	pwnd->m_camera.img_sweep,IDC_CAMIMG,1);
+	m_camimg.ShowImage(pwnd->m_camera.img_sweep,1);
 }
 
 void CCameraImageView::DrawcvMat(Mat mat, UINT ID,bool flag)//显示mat在picture控件中
 {
 	Mat img;
 	CRect rect;
+	CDC* pDC=GetDlgItem(ID)->GetDC();
+	HDC hDC=pDC->GetSafeHdc();
 	GetDlgItem(ID)->GetClientRect(&rect);
 	double scale1=(rect.Width()*1.0)/mat.cols;
 	double scale2=(rect.Height()*1.0)/mat.rows;
@@ -107,87 +115,12 @@ void CCameraImageView::DrawcvMat(Mat mat, UINT ID,bool flag)//显示mat在picture控
 		camscale=scale1;
 	dsize = Size(mat.cols*camscale,mat.rows*camscale);
 	resize(mat,img,dsize);
-	int width,height,depth,channel;
-	width=img.cols;
-	height=img.rows;
-	depth=img.depth();
-	channel=img.channels();
-	int bits,colors,i;
-	bits=(8<<(depth/2))*channel;
-	if (bits>8)
-	{
-		colors=0;
-	} 
-	else
-	{
-		colors=1<<bits;
-	}
-	if (bits==24)
-	{
-		bits=32;
-	}
-	BITMAPINFOHEADER BIH={40,0,0,1,8,BI_RGB,0,0,0,0,0};
-	BIH.biWidth=width;
-	BIH.biHeight=height;
-	BIH.biBitCount=bits;
-	LPBITMAPINFO lpBmi;
-	lpBmi=(LPBITMAPINFO)malloc(40+4*colors);
-	memcpy(lpBmi,&BIH,40);
-	RGBQUAD VgaColorTab[256];
-	if (bits==8)
-	{
-		if (flag==1)
-		{
-			for (i=0;i<256;i++)
-			{
-				VgaColorTab[i].rgbRed=VgaColorTab[i].rgbGreen=VgaColorTab[i].rgbBlue=(BYTE)i;
-			}
-			memcpy(lpBmi->bmiColors,VgaColorTab,1024);
-		}
-		else
-		{
-			memcpy(lpBmi->bmiColors,VgaColorTab,1024);
-		}
-	}
-
-	unsigned char *m_pDibBits;
-	int x,y;
-	unsigned char *bmpdata;
-	unsigned char *imgData=img.data;
-	if (bits==8)
-	{
-		m_pDibBits=new unsigned char[width * height];
-		for (x=0;x<height;x++)
-		{
-			bmpdata=m_pDibBits+(height-1-x)*width;
-			memcpy(bmpdata,imgData,width);
-			imgData=imgData+width;
-
-		}
-
-	}
-	else
-	{
-		if (bits==32)
-		{
-			m_pDibBits=new unsigned char[width*height*4];
-			for (x=0;x<height;x++)
-			{
-				bmpdata=m_pDibBits+(height-1-x)*width*4;
-				for (y=0;y<width;y++)
-				{
-					memcpy(bmpdata,imgData,3);
-					bmpdata[3]=255;
-					bmpdata=bmpdata+4;
-					imgData=imgData+3;
-				}
-
-			}
-		}
-	}
-	CDC *pDC = GetDlgItem(ID)->GetDC();	
-	SetStretchBltMode(pDC->GetSafeHdc(),HALFTONE);
-	StretchDIBits(pDC->GetSafeHdc(),0,0,width,height,0,0,width,height,m_pDibBits,lpBmi,BI_RGB,SRCCOPY);
+	IplImage* drawing_ipl = &IplImage(img);
+	CvvImage Cvvimg;
+	Cvvimg.CopyOf(drawing_ipl);
+	// 将图片绘制到显示控件的指定区域内
+	Cvvimg.DrawToHDC(hDC, &rect );
+	ReleaseDC(pDC);	
 
 }
 

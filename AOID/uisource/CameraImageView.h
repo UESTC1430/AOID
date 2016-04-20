@@ -10,6 +10,7 @@
 #define ORD8	8//(y,-x)
 
 #include "resource.h"
+#include "CV_picture.h"
 // CCameraImageView 窗体视图
 
 class CCameraImageView : public CFormView
@@ -53,7 +54,7 @@ public:
 	CCameraImageView();           // 动态创建所使用的受保护的构造函数
 	virtual ~CCameraImageView();
 	void DrawcvMat(Mat m_cvImg, UINT ID,bool flag);//控件上绘制MAT类型图：true处理灰度图
-
+	CV_picture m_picture;
 public:
 	enum { IDD = IDD_CAMERAIMAGEVIEW };
 #ifdef _DEBUG
@@ -75,6 +76,7 @@ public:
 	afx_msg void OnBnClickedFocus();
 	afx_msg void OnBnClickedtest();
 	afx_msg void OnBnClickedHough();
+	CV_picture m_camimg;
 };
 
 
