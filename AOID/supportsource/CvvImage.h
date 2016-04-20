@@ -48,5 +48,8 @@ public:
 protected:  
 	IplImage*  m_img;  
 };  
-typedef CvvImage CImage;  
+namespace cv2
+{
+    typedef CvvImage CImage;  
+}
 #endif  

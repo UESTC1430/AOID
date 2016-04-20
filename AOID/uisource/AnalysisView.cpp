@@ -26,6 +26,7 @@ void CAnalysisView::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAnalysisView, CFormView)
+	ON_BN_CLICKED(IDC_RADER, &CAnalysisView::OnBnClickedRader)
 END_MESSAGE_MAP()
 
 
@@ -47,3 +48,10 @@ void CAnalysisView::Dump(CDumpContext& dc) const
 
 
 // CAnalysisView 消息处理程序
+
+
+void CAnalysisView::OnBnClickedRader()
+{
+	// TODO: Add your control notification handler code here
+	
+}

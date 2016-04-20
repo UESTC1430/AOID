@@ -12,6 +12,7 @@
 #include "ImageProcess.h"
 #include "Camera.h"
 #include "CncControl.h"
+#include "CV_picture.h"
 #include "CameraImageView.h"
 #include "ADIOtype.h"
 

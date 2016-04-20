@@ -76,6 +76,7 @@ public:
 	afx_msg void OnBnClickedFocus();
 	afx_msg void OnBnClickedtest();
 	afx_msg void OnBnClickedHough();
+	CV_picture m_camimg;
 };
 
 
