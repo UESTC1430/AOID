@@ -1,5 +1,6 @@
 //////////////////////////////////////////////////////////////
 //修改日期2013/05/23
+#include "StdAfx.h"
 
 #ifndef MAX_ADF
 #define MAX_ADF
@@ -167,7 +168,7 @@ typedef  struct USERDATASTRUCT
 	char m_UserName[20];
 	int  m_UserPassword[20];
 	int  m_UserLevel;
-	bool  m_OpLevel[62];//操作权限
+	bool  m_OpLevel[60];//操作权限
 	int m_UserId;
 }UserDatastruct;
 
@@ -408,15 +409,6 @@ typedef struct CIRCLESTRUCT
 	int y;
 	float R;
 }circlestruct;
-
-typedef struct CIRMATCH
-{
-	CIRCLESTRUCT   circleinfile;
-	CIRCLESTRUCT   circleincam;
-	float x_off;
-	float y_off;
-	float R_off;
-}cirmatch;
 //-------------------------------------------------------------------
 
 typedef struct SIGNALSTATE

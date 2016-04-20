@@ -38,6 +38,11 @@
 
 #include <afxcontrolbars.h>     // 功能区和控件条的 MFC 支持
 
+
+#include "AOIDtype.h"
+
+//*****************************************************图片处理OPENCV头文件
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>

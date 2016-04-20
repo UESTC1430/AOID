@@ -48,5 +48,5 @@ public:
 protected:  
 	IplImage*  m_img;  
 };  
-typedef CvvImage CImage;  
+//typedef CvvImage CImage;  
 #endif  

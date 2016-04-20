@@ -15,24 +15,28 @@
 class CCameraImageView : public CFormView
 {
 	DECLARE_DYNCREATE(CCameraImageView)
+
 public:
-	float camscale;
-	// protected constructor used by dynamic creation
-/*	bool mouseexflag;//鼠标拖动标记，该标记有效，说明鼠标按下
+	bool mouseexflag;//鼠标拖动标记，该标记有效，说明鼠标按下
 	CPoint endpoint; //鼠标拖动起点
 	CPoint startpoint;//鼠标拖动终点
+
+	Point2i location11;
+	Point2i rotatofile;
 	bool inrectfile;//当为TURE时表示在文件区域
 	bool inrectcam;
 	//--------------------------------------------------------------------加工文件参数处理
 	CRect rectfile;
 	CDC *m_rectfile;
-
-	int iholefilein;//标记是否有打孔文件导入0：没有导入，1：导入
 	int xpcbmax;//加工文件打孔圆心的最大最小
 	int ypcbmax;
+	int xpcbmin;
+	int ypcbmin;
 	int workwide;//程序默认处理的最大PCB的大小，单位微米
 	int workheight;
-	float filescale;//实际尺寸与像素尺寸间的缩放比例
+	float filescale;//实际尺寸与像素尺寸间的缩放比例<1
+	float start_filescale;
+	float filewheel;//滚轮放大系数
 
 	circlestruct  location;//存放文件中找到的圆
 	vector<circlestruct>  locationinfile;
@@ -46,9 +50,14 @@ public:
 	CRect rectcam;
 	CDC *m_rectcam;
 	float camscale;//实际尺寸与像素尺寸间的缩放比例
-
+	
 	vector<vector<Point> > contours1;
-//protected:*/
+	//**************************
+	int  MAXarea;
+	vector<KeyPoint> keypoints1,keypoints2;
+	int i_max;
+	float p_temp,p_max;
+
 public:
 	CCameraImageView();           // 动态创建所使用的受保护的构造函数
 	virtual ~CCameraImageView();

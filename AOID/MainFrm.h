@@ -15,6 +15,9 @@
 
 #pragma once
 
+//float matchscale;
+//float matchangle;
+
 class CMainFrame : public CFrameWndEx
 {
 	
@@ -35,6 +38,8 @@ public:
 	bool cmdviewflag;
 //	Camera m_camera;
 	UserMarkFlag  m_usermarkflag;
+	
+
 
 // Ьиад
 public:
