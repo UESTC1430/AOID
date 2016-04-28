@@ -30,7 +30,6 @@ public:
 	afx_msg void OnBnClickedHough();
 	void salt(Mat image, int n);
 	CV_picture m_Show;
-	CImageProcess m_imageprocess;
 	virtual void OnInitialUpdate();
 };
 

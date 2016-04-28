@@ -25,10 +25,10 @@ void CV_picture::OnInit()
 	m_dst_img=m_src_img+0;
 	m_drawing=m_dst_img+0;
 	m_MouseDraw_img=Mat(m_dst_img.size(),m_dst_img.type(),Scalar(255,255,255));
-	m_iDrawingMethod=1;
+	m_iDrawingMethod=0;
 	m_ptMButtonDown=0;
 	m_ptBeforeMove=Point2f(0);
-
+	
 	//初始化roi相关参数
 	m_fRoi_scale=1;
 	m_rect_roi=Rect(0,0,m_dst_img.cols,m_dst_img.rows);
@@ -384,11 +384,11 @@ void CV_picture::OnMouseMove(UINT nFlags, CPoint point)
 		point_in_img.x=point_in_img.x+m_rect_roi.x;
 		point_in_img.y=point_in_img.y+m_rect_roi.y;
 		//下面是将当前坐标信息显示到对话框控件的模板
-// 		char x[10];
-// 		sprintf(x,"%.5f",height);
-// 		CWnd *pCWnd_parent;
-// 		pCWnd_parent=GetParent();
-// 		pCWnd_parent->GetDlgItem(IDC_EDIT1)->SetWindowTextA(x);
+ 		//char x[10];
+ 		//sprintf(x,"%.5f",m_rect_roi.height);  //height
+ 		//CWnd *pCWnd_parent;
+ 		//pCWnd_parent=GetParent();
+ 		//pCWnd_parent->GetDlgItem(IDC_LOCATION)->SetWindowTextA(x);
 	}
 
 	CStatic::OnMouseMove(nFlags, point);
@@ -411,7 +411,7 @@ BOOL CV_picture::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 		Point pt_in_draw=Point((pt.x-src_draw_tl.x),(pt.y-src_draw_tl.y));
 		Point vec(pt_in_draw.x-m_rect.CenterPoint().x,pt_in_draw.y-m_rect.CenterPoint().y);
 		//当前缩放比的算出roi中心的偏移
-		Point center_vec=Point( (float(vec.x)*m_fRoi_scale+0.5f), (float(vec.y)*m_fRoi_scale+0.5f) );
+		Point center_vec=Point( (float(vec.x)*m_fRoi_scale+0.5), (float(vec.y)*m_fRoi_scale+0.5) );
 		//显示调整后的roi区域
 		SetImage_roi(center_vec,m_fRoi_scale);
 		//根据两种缩放模式分别计算roi移动距离与鼠标移动距离的比

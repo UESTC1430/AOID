@@ -78,14 +78,23 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void InputImage();
-	afx_msg void OnGetPiont();
-	afx_msg void CameraimageShow();
-	afx_msg void OnCutImage();
+	afx_msg void InputImage();			//加工文件输入显示
+	afx_msg void OnGetPiont();			//获取定位点
+	afx_msg void CameraimageShow();		//摄像头采集文件显示
+	afx_msg void OnCutImage();			//图像匹配
 	afx_msg void OnBnClickedFocus();
 	afx_msg void OnBnClickedtest();
 	afx_msg void OnBnClickedHough();
+	virtual void OnInitialUpdate();	
+private:	
 	CV_picture m_camimg;
+protected:
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnMButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnMButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 };
 
 

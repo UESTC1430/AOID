@@ -42,10 +42,11 @@ public:
 	afx_msg void OnDblclkListfilename(NMHDR *pNMHDR, LRESULT *pResult);
 	virtual void OnActivateView(BOOL bActivate, CView* pActivateView, CView* pDeactiveView);
 	virtual void OnInitialUpdate();
-//	void OnInport(void);
 //	void ProcessStr(CString* InputStr);
 //	void ProcessStr_AddEnter(CString* InputStr);
 //	void ProcessStr_DeleteLastEnter(CString* InputStr);
+	afx_msg void OnInport();
+	afx_msg void OnLvnItemchangedListfilename(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 

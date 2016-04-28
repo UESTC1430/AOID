@@ -6,15 +6,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* at Thu Apr 14 13:40:26 2016
-=======
-/* at Mon Apr 18 16:23:13 2016
->>>>>>> origin/master
-=======
-/* at Tue Apr 19 21:34:36 2016
->>>>>>> release
+/* at Tue Apr 26 10:21:32 2016
  */
 /* Compiler settings for AOID.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 

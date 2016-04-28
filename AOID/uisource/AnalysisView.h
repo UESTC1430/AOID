@@ -62,20 +62,20 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-<<<<<<< HEAD
+
 	afx_msg void OnBnClickedRader();
-=======
+
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton4();
-	afx_msg void OnRadar();
 	virtual void OnInitialUpdate();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	bool ProgInChart(CPoint start,CPoint end);
 	
->>>>>>> release
+
+	afx_msg void OnRadar();
 };
 
 

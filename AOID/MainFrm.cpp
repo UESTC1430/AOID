@@ -11,6 +11,9 @@
 #include "toolpanewnd.h"
 
 
+float matchscale;
+float matchangle;
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -133,4 +136,26 @@ void CMainFrame::ShowCmdView(bool flag)
 		}
 		m_pMenuPaneWnd->m_pProgView->HighLightFnButton(m_pMenuPaneWnd->m_pProgView->fbtnnum);
 	}
+}
+
+void CMainFrame::SPACEKEYDOWN()//空格键 功能   钻孔时暂停待完善
+{
+	//	SendMessage(WM_KEYDOWN,0,0);
+	/*	m_pProgPaneWnd->m_pProgressView->m_pro.SetWindowText("Hello");
+	UpdateData(FALSE);
+	CString num;
+	for(int i=0;i<100;i++)
+	{
+	m_pProgPaneWnd->m_pProgressView->m_pro.SetPos(i);
+	m_pProgPaneWnd->m_pProgressView->m_pro.SetWindowText("初始化过程中");
+	::Sleep(25);
+	}	
+	m_pProgPaneWnd->m_pProgressView->m_pro.SetPos(0);
+	m_pProgPaneWnd->m_pProgressView->m_pro.SetWindowText("初始化完毕");
+	m_pProgPaneWnd->m_pProgressView->m_pro.SetShowText(TRUE);*/
+	// m_pOpPaneWnd->m_pF1SubItem2View->OnPause();//打孔时暂停
+	
+	
+	
+	
 }

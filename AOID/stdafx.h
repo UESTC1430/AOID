@@ -66,7 +66,6 @@ using namespace cv;
 
 
 
-
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlctl.h>
