@@ -403,9 +403,6 @@
     <ClInclude Include="CmdView.h">
       <Filter>头文件\uisource</Filter>
     </ClInclude>
-    <ClInclude Include="ADIOtype.h">
-      <Filter>头文件\otheruisource</Filter>
-    </ClInclude>
     <ClInclude Include="uisource\ToolViewAll.h">
       <Filter>头文件\uisource</Filter>
     </ClInclude>
@@ -435,6 +432,15 @@
     </ClInclude>
     <ClInclude Include="supportsource\MastProgInOut.h">
       <Filter>头文件\supportsource</Filter>
+    </ClInclude>
+    <ClInclude Include="uisource\FindOrgan.h">
+      <Filter>头文件\supportsource</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\AOIDtype.h">
+      <Filter>头文件\supportsource</Filter>
+    </ClInclude>
+    <ClInclude Include="otheruisource\PathFunction.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -569,6 +575,12 @@
     </ClCompile>
     <ClCompile Include="supportsource\MastProgInOut.cpp">
       <Filter>源文件\supportsource</Filter>
+    </ClCompile>
+    <ClCompile Include="uisource\FindOrgan.cpp">
+      <Filter>源文件\supportsource</Filter>
+    </ClCompile>
+    <ClCompile Include="otheruisource\PathFunction.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

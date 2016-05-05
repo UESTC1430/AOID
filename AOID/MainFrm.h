@@ -14,8 +14,10 @@
 #include "CncControl.h"
 #include "CV_picture.h"
 #include "CameraImageView.h"
-#include "ADIOtype.h"
+#include "AOIDtype.h"
+#include "PathFunction.h"
 
+//#pragma comment(lib,"Shlwapi.lib") 
 
 
 
@@ -62,6 +64,89 @@
 extern float matchscale;
 extern float matchangle;
 
+
+typedef struct
+{
+	bool flagNeedCallback; //回调标记
+	int  messageid;		//消息id
+	char *messagecode;//[4096]; //命令串
+	unsigned long imilisecond;//定时毫秒值	
+}MessageType;
+typedef struct _MessageNode
+{
+	MessageType message;
+	struct _MessageNode *pnext;
+}MessageNode;
+typedef struct
+{
+	int ProcessType;//规定ProcessType=1指定起始和终止点模式 ProcessType=2指定刀具选择模式
+	int ToolArary[20];
+	int BeginLinkPos;
+	int EndLinkPos;
+}DrillLinkStruct;
+
+
+typedef struct MESSAGELIST
+{
+	char m_MessageNote[256];
+	int FlagCallBack;
+	struct MESSAGELIST *pnextmessage;
+}MessageList;
+
+typedef struct MESSAGESTRUCT//进度条显示消息 结构体
+{
+	int messagegid;//消息id
+	char message[256];//内容
+	struct MESSAGESTRUCT *next;
+}MsgStruct;
+
+
+
+class CncMessage
+{
+public: 
+	CncMessage();
+public:
+	MessageNode *phead;
+	MessageNode headnode;
+	MessageType nextmessage;//动态返回的消息
+	char nextmessagebuf[4096];
+	char returnstr[4096];
+	CRITICAL_SECTION m_messageCriticalSection;
+public:
+	bool SendMessage(MessageType message); 
+	bool GetMessage(MessageType * pmessage);
+	void EmptyMessage();
+
+public:
+	int FindHomeCmdStr(char *finstr);
+	~CncMessage();
+
+};
+
+
+class CShowMessage
+{
+public: 
+	CShowMessage();
+public:
+	MsgStruct *firstnode;
+	int MessagePush(MsgStruct *addnode);	
+	MsgStruct MessagePop();	
+	bool IsMsgQueueEmpty();
+public:
+
+
+public:
+	int MessageInsert(MsgStruct *addnode);
+	MsgStruct GetQueueFront();
+	int DeleteMsgNode(int id);
+	bool IsMsgExist(int id);
+	~CShowMessage();
+
+};
+
+
 class CMainFrame : public CFrameWndEx
 {
 	
@@ -77,7 +162,17 @@ public:
 	CProgPaneWnd  * m_pProgPaneWnd;
 	CToolPaneWnd  * m_pToolPaneWnd;
 	CImageProcess   m_imageprocess;
-	
+	CPathFunction *m_pathfuction;
+
+	//---------------------------------------------------------
+	bool ConvertThreadIsSuspend;//线程挂起态
+	CncMessage *m_pcncmessage;//程序处理得到的消息队列
+	CncMessage *m_pcnccmdmessage;//基于命令行的消息队列
+
+
+	CShowMessage *operatemsgqueue;
+	CShowMessage *warningmsgqueue;
+	CShowMessage *errormsgqueue;
 
 	CCameraImageView m_cameraimageview;
 	UserDatastruct  userdatastruct;//当前用户信息结构体实例化
@@ -85,9 +180,12 @@ public:
 
 //	Camera m_camera;
 	UserMarkFlag  m_usermarkflag;
-
 	Camera m_camera;
 	CncControl m_cnccontrol;
+
+	int MacModeStatus;//机床运行控制模式。0：正常模式、1：脱机模式、2：检修模式
+
+
 
 // 特性
 public:

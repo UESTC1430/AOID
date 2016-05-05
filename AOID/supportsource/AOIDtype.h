@@ -167,7 +167,7 @@ typedef  struct USERDATASTRUCT
 	char m_UserName[20];
 	int  m_UserPassword[20];
 	int  m_UserLevel;
-	bool  m_OpLevel[62];//操作权限
+	bool  m_OpLevel[60];//操作权限
 	int m_UserId;
 }UserDatastruct;
 
@@ -391,7 +391,16 @@ typedef struct AXISPOSITION
 	double Z1POS;//表示Z1轴的位置
 	double Z2POS;//表示Z2轴的位置
 }AxisPosition;
-
+//______________________________________________zns0414机床状态结构体
+typedef struct CNCCONDITION
+{
+	int XD;//判断运动是否完成
+	int YD;
+	int ZD;
+	float XPOS;//位置
+	float YPOS;
+	float ZPOS;
+}CncCondition;
 
 typedef struct CIRCLESTRUCT
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-#include"ADIOtype.h"
+#include"AOIDtype.h"
 
 // CCmdView ¶Ô»°¿ò
 

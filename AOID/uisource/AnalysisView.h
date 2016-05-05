@@ -1,8 +1,18 @@
-#pragma once
+#if !defined(AFX_ANALYSISVIEW_H__FBD93EFB_DA0C_4BEB_A8AF_CC2024DDC5D4__INCLUDED_)
+#define AFX_ANALYSISVIEW_H__FBD93EFB_DA0C_4BEB_A8AF_CC2024DDC5D4__INCLUDED_
 
-#include "Resource.h"
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+// AnalysisView.h : header file
+//
+
+/////////////////////////////////////////////////////////////////////////////
+// CAnalysisView form view
+
+#ifndef __AFXEXT_H__
 #include <afxext.h>
-// CAnalysisView ¥∞ÃÂ ”Õº
+#endif
 
 class CAnalysisView : public CFormView
 {
@@ -79,3 +89,9 @@ public:
 };
 
 
+/////////////////////////////////////////////////////////////////////////////
+
+//{{AFX_INSERT_LOCATION}}
+// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
+
+#endif // !defined(AFX_ANALYSISVIEW_H__FBD93EFB_DA0C_4BEB_A8AF_CC2024DDC5D4__INCLUDED_)

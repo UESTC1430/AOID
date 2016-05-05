@@ -236,15 +236,16 @@
     <None Include="res\Toolbar256.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ADIOtype.h" />
     <ClInclude Include="AOID.h" />
     <ClInclude Include="AOIDDoc.h" />
     <ClInclude Include="AOIDView.h" />
     <ClInclude Include="CmdView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="otheruisource\PathFunction.h" />
     <ClInclude Include="otheruisource\StaticButton.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="supportsource\AOIDtype.h" />
     <ClInclude Include="supportsource\Camera.h" />
     <ClInclude Include="supportsource\CncControl.h" />
     <ClInclude Include="supportsource\CvvImage.h" />
@@ -258,6 +259,7 @@
     <ClInclude Include="uisource\CameraImageView.h" />
     <ClInclude Include="uisource\CameraPosView.h" />
     <ClInclude Include="uisource\FileAndContentsView.h" />
+    <ClInclude Include="uisource\FindOrgan.h" />
     <ClInclude Include="uisource\FocusView.h" />
     <ClInclude Include="uisource\InchFunctionView.h" />
     <ClInclude Include="uisource\InfoPaneWnd.h" />
@@ -291,6 +293,7 @@
     <ClCompile Include="AOIDView.cpp" />
     <ClCompile Include="CmdView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="otheruisource\PathFunction.cpp" />
     <ClCompile Include="otheruisource\StaticButton.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -309,6 +312,7 @@
     <ClCompile Include="uisource\CameraImageView.cpp" />
     <ClCompile Include="uisource\CameraPosView.cpp" />
     <ClCompile Include="uisource\FileAndContentsView.cpp" />
+    <ClCompile Include="uisource\FindOrgan.cpp" />
     <ClCompile Include="uisource\FocusView.cpp" />
     <ClCompile Include="uisource\InchFunctionView.cpp" />
     <ClCompile Include="uisource\InfoPaneWnd.cpp" />

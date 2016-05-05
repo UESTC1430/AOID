@@ -43,6 +43,13 @@ CMainFrame::CMainFrame()
 	int a=max(1,2);
 	cmdviewflag=false;//初始化不显示cmdview
 	theApp.m_nAppLook = theApp.GetInt(_T("ApplicationLook"), ID_VIEW_APPLOOK_VS_2008);
+	
+	theApp.pwnd=this;
+	m_pcncmessage = new CncMessage;
+	m_pcnccmdmessage = new CncMessage;
+	operatemsgqueue=new CShowMessage;
+	warningmsgqueue=new CShowMessage;
+	errormsgqueue=new CShowMessage;
 }
 
 CMainFrame::~CMainFrame()
@@ -55,7 +62,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	return 0;
 }
-
+//设置界面宽度
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWndEx::PreCreateWindow(cs) )
@@ -158,4 +165,223 @@ void CMainFrame::SPACEKEYDOWN()//空格键 功能   钻孔时暂停待完善
 	
 	
 	
+}
+
+CncMessage::CncMessage()
+{
+	this->headnode.pnext = NULL;
+	this->phead = &headnode;
+	InitializeCriticalSection(&m_messageCriticalSection);
+}
+
+CncMessage::~CncMessage()
+{
+	MessageNode *pnode;
+	while(phead->pnext)//释放未处理的结点
+	{
+		pnode = phead->pnext;
+		phead->pnext = pnode->pnext;
+		free(pnode);
+		pnode=NULL;//0811
+	}
+}
+
+bool CncMessage::SendMessage(MessageType message)
+{
+	MessageNode * psendnode;
+	MessageNode * pnode;//链表指针的临时变量
+	psendnode =(MessageNode *) malloc(sizeof(MessageNode));
+	if(psendnode!=NULL)
+	{
+		psendnode->message = message;//？
+		psendnode->message.messagecode = (char *)malloc(strlen(message.messagecode)+1);
+		if(psendnode->message.messagecode!=NULL)
+		{
+			strcpy(psendnode->message.messagecode,message.messagecode);
+			psendnode->pnext = NULL;
+			pnode = phead;
+			EnterCriticalSection(&m_messageCriticalSection);
+			while(pnode->pnext)//找最后一个结点
+			{
+				pnode = pnode->pnext;
+			}
+			pnode->pnext = psendnode;
+			LeaveCriticalSection(&m_messageCriticalSection);
+		}
+	}
+
+	return true;
+
+}
+
+bool CncMessage::GetMessage(MessageType * pmessage)
+{
+	if(phead==NULL)
+	{
+		return false;
+	}
+	MessageNode *pnode=phead->pnext;
+	if(pnode!=NULL)
+	{
+
+		EnterCriticalSection(&m_messageCriticalSection);
+		(*pmessage).flagNeedCallback = pnode->message.flagNeedCallback;//将队首节点返回给传入的消息参数
+		strcpy(pmessage->messagecode,pnode->message.messagecode);
+		(*pmessage).imilisecond = pnode->message.imilisecond;
+		(*pmessage).messageid = pnode->message.messageid;
+		phead->pnext = pnode->pnext; //删除第一个结点
+		LeaveCriticalSection(&m_messageCriticalSection);
+		free(pnode->message.messagecode);
+		pnode->message.messagecode=NULL;//0810
+		free(pnode);
+		pnode=NULL;//0810
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}
+
+void CncMessage::EmptyMessage()//删除了一个节点里面的内容
+{
+	//--------------------------------------------------
+	MessageNode *pnode;
+	MessageNode *pdeletenode;
+	pnode = phead;
+	//清空所有消息
+	EnterCriticalSection(&m_messageCriticalSection);
+	while(pnode->pnext)
+	{
+		pdeletenode = pnode->pnext;
+		pnode->pnext = pdeletenode->pnext;		
+		free(pdeletenode->message.messagecode);
+		pdeletenode->message.messagecode=NULL;//0810
+		free(pdeletenode);
+		pdeletenode=NULL;//0810
+
+	}
+	LeaveCriticalSection(&m_messageCriticalSection);		
+	phead->pnext = NULL;
+	//	pdeletenode=NULL;
+}
+
+CShowMessage::CShowMessage()
+{
+	//this->headnode.pnext = NULL;
+	this->firstnode = NULL;
+}
+
+CShowMessage::~CShowMessage()
+{
+
+}
+
+int CShowMessage::MessagePush(MsgStruct *addnode)
+{
+	if (NULL==firstnode)
+	{
+		firstnode=addnode;
+	}
+	else
+	{
+		MsgStruct *tempnode=firstnode;
+		while (tempnode->next!=NULL)
+		{
+			tempnode=tempnode->next;
+		}
+		tempnode->next=addnode;
+	}	
+	return 0;
+}
+
+MsgStruct CShowMessage::MessagePop()
+{
+	MsgStruct msgnode=*firstnode;
+	firstnode=firstnode->next;
+	return msgnode;
+}
+
+bool CShowMessage::IsMsgQueueEmpty()
+{
+	if (NULL==firstnode)
+		return true;
+	return false;
+}
+
+bool CShowMessage::IsMsgExist(int id)
+{
+	if (IsMsgQueueEmpty())
+		return false;
+	MsgStruct *tempnode=firstnode;
+	while (tempnode!=NULL)
+	{
+		if (tempnode->messagegid==id)
+		{
+			return true;
+		}
+		tempnode=tempnode->next;
+	}
+	return false;
+}
+
+int CShowMessage::DeleteMsgNode(int id)
+{
+	if (IsMsgQueueEmpty())
+		return -1;
+	MsgStruct *curnode=firstnode;
+	MsgStruct *prenode=NULL;
+	MsgStruct *tempnode=NULL;
+	while (curnode!=NULL)
+	{
+		if (curnode->messagegid==id)
+		{
+			if(prenode==NULL)
+			{
+				tempnode=firstnode;
+				firstnode=firstnode->next;
+			}
+			else
+			{
+				prenode->next=curnode->next;
+				tempnode=curnode;	
+			}
+			curnode=curnode->next;
+			free(tempnode);
+			tempnode=NULL;
+		}
+		else
+		{
+			prenode=curnode;
+			curnode=curnode->next;
+		}
+
+	}
+	return 0;
+}
+
+MsgStruct CShowMessage::GetQueueFront()
+{
+	MsgStruct msgnode=*firstnode;
+	return msgnode;
+}
+
+int CShowMessage::MessageInsert(MsgStruct *addnode)
+{
+	if (NULL==addnode)
+	{
+		return -1;
+	}
+	if (NULL==firstnode)
+	{
+		firstnode=addnode;
+	}
+	else
+	{
+		addnode->next=firstnode;
+		firstnode=addnode;
+	}	
+	return 0;
+
 }
