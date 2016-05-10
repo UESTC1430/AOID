@@ -532,11 +532,12 @@ void CCameraImageView::DrawcvMat(Mat mat, UINT ID,bool flag)//ÏÔÊ¾matÔÚpicture¿Ø
 void CCameraImageView::OnBnClickedHough()
 {
 	
-	Mat mat = imread( "F:\\result.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR );
+	//Mat mat = imread( "F:\\result.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR );
 	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
 	//pwnd->m_imageprocess.HoughGetHole(mat);
+	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_TESTITEM);
 
-	DrawcvMat(mat,IDC_CAMIMG,1);
+	//DrawcvMat(mat,IDC_CAMIMG,1);
 }
 
 void CCameraImageView::OnLButtonDown(UINT nFlags, CPoint point)

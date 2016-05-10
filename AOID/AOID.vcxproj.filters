@@ -582,6 +582,9 @@
     <ClCompile Include="otheruisource\PathFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="imageanalysis.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AOID.rc">

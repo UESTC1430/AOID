@@ -15,6 +15,13 @@ public:
 
 public:
 	enum { IDD = IDD_FILEANDCONTENTSVIEW };
+	CButton	m_subpathbtn;
+	CButton	m_mastpathbtn;
+	CButton	m_atppathbtn;
+	CString	m_subprogpath;
+	CString	m_atpprogpath;
+	CString	m_mastprogpath;
+	//CPathChangeDlg  pathchangedlg;
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 #ifndef _WIN32_WCE
@@ -29,6 +36,16 @@ protected:
 public:
 	afx_msg void OnMastpathChange();
 	afx_msg void OnSubpathChange();
+
+	afx_msg void OnAtppathChange();
+	afx_msg void OnKillfocusMastprogpath();
+	afx_msg void OnSetfocusMastprogpath();
+	afx_msg void OnKillfocusSubprogpath();
+	afx_msg void OnSetfocusSubprogpath();
+	afx_msg void OnKillfocusAtpprogpath();
+	afx_msg void OnSetfocusAtpprogpath();
+	virtual void OnActivateView(BOOL bActivate, CView* pActivateView, CView* pDeactiveView);
+	virtual void OnInitialUpdate();
 };
 
 

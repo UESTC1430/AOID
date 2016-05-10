@@ -192,8 +192,31 @@ void CMastProgInView::OnDblclkListfilename(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CMastProgInView::OnActivateView(BOOL bActivate, CView* pActivateView, CView* pDeactiveView)
 {
-	// TODO: 在此添加专用代码和/或调用基类
-
+	CMainFrame *pwnd=(CMainFrame *)AfxGetMainWnd();
+	CString temppath;
+	CString drive;
+	if (bActivate)
+	{
+		if (this->m_filecontentstr.IsEmpty()
+			&& (!pwnd->m_pOpPaneWnd->m_pF1SubItem4View->m_mastprogpath.IsEmpty()) ) //设置路径不为空且当前没有导入任何加工文件
+		{
+			temppath=pwnd->m_pOpPaneWnd->m_pF1SubItem4View->m_mastprogpath;
+			if (PathFileExists(temppath))
+			{
+				//用户设置快捷路径合法，遍历此路径
+				m_pathstr=temppath;
+			}
+			else
+			{
+				//用户设置快捷路径不合法，默认遍历C盘
+				m_diskdrive.GetLBText(0,drive);
+				m_pathstr=drive;
+			}	
+			pwnd->m_pathfuction->TraverseFolder(m_pathstr,&m_filenamelist,filetype);
+		}
+		UpdateData(false);
+	}
+	//	UpdateData(false);//文件预览 IDC_EDITFILECONTENT控件内容被修改时 需要更新显示
 	CFormView::OnActivateView(bActivate, pActivateView, pDeactiveView);
 }
 

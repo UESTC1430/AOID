@@ -87,16 +87,74 @@ void CImageAnalysis::OnBnClickedsaltshow()
 	waitKey(0);
 }
 
+void
+	 CImageAnalysis::Histogram()
+{
+	Mat mat = imread( "F:\\4点定位剪切图.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR );
+	Mat src,src1,src2;
+	Mat hist;
+	int histSize = 255;
+	float range[] = { 0, 255 } ;
+	const float* histRange = { range };
+	bool uniform = true; 
+	bool accumulate = false;
+	calcHist( &src1, 1, 0, Mat(), hist, 1, &histSize, &histRange, uniform, accumulate );
+	int hist_w = 400; int hist_h = 400;
+	int bin_w = cvRound( (double) hist_w/histSize );
+
+	Mat histImage( hist_w, hist_h, CV_8UC3, Scalar( 255,255,255) );
+	normalize(hist, hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
+	for( int i = 1; i < histSize; i++ )
+	{
+		line( histImage, Point( bin_w*(i-1), hist_h - cvRound(hist.at<float>(i-1)) ) ,
+			Point( bin_w*(i), hist_h - cvRound(hist.at<float>(i)) ),
+			Scalar( 0, 0, 255), 2, 8, 0  );
+	}
+	namedWindow("calcHist Demo", CV_WINDOW_AUTOSIZE );
+	imshow("calcHist Demo", histImage );
+}
 
 void CImageAnalysis::OnBnClickedHough()
 {
 	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
 	GetDlgItem(IDC_Show);
-	Mat mat = imread( "F:\\result.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR );
+	Mat mat = imread( "F:\\4点定位剪切图.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR );
 	Mat src,src1,src2;
+	
 	mat.copyTo(src);
 	medianBlur(src,src1,5);//中值滤波
 	int threshold1=100;
+
+	Mat hist;
+	int histSize = 255;
+	float range[] = { 0, 255 } ;
+	const float* histRange = { range };
+	bool uniform = true; 
+	bool accumulate = false;
+	calcHist( &src1, 1, 0, Mat(), hist, 1, &histSize, &histRange, uniform, accumulate );
+	int hist_w = 400; int hist_h = 400;
+	int bin_w = cvRound( (double) 3*hist_w/histSize );
+
+	Mat histImage( hist_w, hist_h, CV_8UC3, Scalar( 255,255,255) );
+	normalize(hist, hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
+
+
+	for( int i = 1; i < 255; i++ )
+	{
+		line( histImage, Point( bin_w*(i-1), hist_h - cvRound(hist.at<float>(i-1)) ) ,
+			Point( bin_w*(i), hist_h - cvRound(hist.at<float>(i)) ),
+			Scalar( 0, 0, 0), 2, 8, 0  );
+		/*line( histImage, Point( bin_w*(i), hist_h - cvRound(hist.at<float>(i)) ) ,
+			Point( bin_w*(i), hist_h  ),
+			Scalar( 0, 0, 0), 2, 8, 0  );*/
+	}
+	
+	namedWindow("calcHist Demo", CV_WINDOW_AUTOSIZE );
+	imshow("calcHist Demo", histImage );
+	imwrite("hist.bmp",histImage);
+	//Histogram();
+
+	//m_Show.ShowImage(hist,0);
 	//threshold(src1,src1,threshold1,255,THRESH_BINARY);//二值图的生成；
 	//vector<vector<Point> > contours;
 	//vector<Vec3f> circles;
@@ -113,7 +171,7 @@ void CImageAnalysis::OnBnClickedHough()
 		// circle outline
 		circle( src, center, radius, Scalar(0,0,255), 3, 8, 0 );
 	}*/
-	pwnd->m_imageprocess.ImageRotate(src1,src2,1.5);
+	/*pwnd->m_imageprocess.ImageRotate(src1,src2,1.5);
 	Mat src3=Mat::zeros(src2.rows,src2.cols,src2.type());//src2.cols+10
 	Mat dst=Mat::zeros(src2.rows,src2.cols,src2.type());
 	int src2_half_rows=src2.rows/2;
@@ -176,8 +234,9 @@ void CImageAnalysis::OnBnClickedHough()
 	{
 		drawContours( gray, contours, i, Scalar(255,0,0), 2, 8, contours[0], 0, Point() );
 	}
+	
 
-	m_Show.ShowImage(gray,0);
+	m_Show.ShowImage(hist,0);*/
 
 }
 

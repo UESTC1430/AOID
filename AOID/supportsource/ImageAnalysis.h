@@ -29,8 +29,10 @@ public:
 	afx_msg void OnBnClickedsaltshow();
 	afx_msg void OnBnClickedHough();
 	void salt(Mat image, int n);
+
 	CV_picture m_Show;
 	virtual void OnInitialUpdate();
+	void Histogram(void);
 };
 
 
