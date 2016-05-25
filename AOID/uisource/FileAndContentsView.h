@@ -46,6 +46,7 @@ public:
 	afx_msg void OnSetfocusAtpprogpath();
 	virtual void OnActivateView(BOOL bActivate, CView* pActivateView, CView* pDeactiveView);
 	virtual void OnInitialUpdate();
+	afx_msg void OnBnClickedMastpathbtn();
 };
 
 

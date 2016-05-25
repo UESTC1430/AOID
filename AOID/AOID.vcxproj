@@ -292,7 +292,6 @@
     <ClCompile Include="AOIDDoc.cpp" />
     <ClCompile Include="AOIDView.cpp" />
     <ClCompile Include="CmdView.cpp" />
-    <ClCompile Include="imageanalysis.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="otheruisource\PathFunction.cpp" />
     <ClCompile Include="otheruisource\StaticButton.cpp" />

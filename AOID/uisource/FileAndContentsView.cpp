@@ -32,7 +32,7 @@ void CFileAndContentsView::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CFileAndContentsView, CFormView)
-	/*ON_BN_CLICKED(IDC_MASTPATHBTN, &CFileAndContentsView::OnMastpathChange)
+/*	ON_BN_CLICKED(IDC_MASTPATHBTN, &CFileAndContentsView::OnMastpathChange)
 	ON_BN_CLICKED(IDC_SUBPATHBTN, &CFileAndContentsView::OnSubpathChange)
 	ON_BN_CLICKED(IDC_ATPPATHBTN, &CFileAndContentsView::OnAtppathChange)
 	ON_EN_KILLFOCUS(IDC_MASTPROGPATH, &CFileAndContentsView::OnKillfocusMastprogpath)
@@ -40,7 +40,8 @@ BEGIN_MESSAGE_MAP(CFileAndContentsView, CFormView)
 	ON_EN_KILLFOCUS(IDC_SUBPROGPATH, &CFileAndContentsView::OnKillfocusSubprogpath)
 	ON_EN_SETFOCUS(IDC_SUBPROGPATH, &CFileAndContentsView::OnSetfocusSubprogpath)
 	ON_EN_KILLFOCUS(IDC_SUBPROGPATH2, &CFileAndContentsView::OnKillfocusAtpprogpath)
-	ON_EN_SETFOCUS(IDC_SUBPROGPATH2, &CFileAndContentsView::OnSetfocusAtpprogpath)*/
+	ON_EN_SETFOCUS(IDC_SUBPROGPATH2, &CFileAndContentsView::OnSetfocusAtpprogpath)
+	ON_BN_CLICKED(IDC_MASTPATHBTN, &CFileAndContentsView::OnBnClickedMastpathbtn)*/
 END_MESSAGE_MAP()
 
 
@@ -68,24 +69,24 @@ void CFileAndContentsView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
 
-	/*CFormView::OnInitialUpdate();
+	CFormView::OnInitialUpdate();
 	m_mastprogpath=theApp.pwnd->m_cnccontrol.Configstruct.FileInfo.cmastprogpath;
 	m_subprogpath=theApp.pwnd->m_cnccontrol.Configstruct.FileInfo.csubprogpath;
 	m_atpprogpath=theApp.pwnd->m_cnccontrol.Configstruct.FileInfo.catppath;
-	UpdateData(false);*/
+	UpdateData(false);
 }
 
 void CFileAndContentsView::OnActivateView(BOOL bActivate, CView* pActivateView, CView* pDeactiveView)
 {
-/*	// TODO: 在此添加专用代码和/或调用基类
+	// TODO: 在此添加专用代码和/或调用基类
 
-	CFormView::OnActivateView(bActivate, pActivateView, pDeactiveView);*/
+	CFormView::OnActivateView(bActivate, pActivateView, pDeactiveView);
 }
-/*
+
 
 void CFileAndContentsView::OnMastpathChange()
 {
-	// TODO: Add your control notification handler code here
+	/*// TODO: Add your control notification handler code here
 	CMainFrame *pwnd=(CMainFrame *)AfxGetMainWnd();
 	if(IDOK==pathchangedlg.DoModal())
 	{
@@ -93,34 +94,34 @@ void CFileAndContentsView::OnMastpathChange()
 		strcpy(theApp.pwnd->m_cnccontrol.Configstruct.FileInfo.cmastprogpath,m_mastprogpath);//关闭程序时写入环境暂存文件
 		m_mastpathbtn.ShowWindow(false);//按钮隐藏
 		UpdateData(false);
-	}
+	}*/
 }
 
 
 void CFileAndContentsView::OnSubpathChange()
 {
-	// TODO: Add your control notification handler code here
+/*	// TODO: Add your control notification handler code here
 	if(IDOK==pathchangedlg.DoModal())
 	{
 		m_subprogpath=pathchangedlg.m_pathstr;
 		strcpy(theApp.pwnd->m_cnccontrol.Configstruct.FileInfo.csubprogpath,m_subprogpath);
 		m_subpathbtn.ShowWindow(false);
 		UpdateData(false);
-	}
+	}*/
 }
 
 
 void CFileAndContentsView::OnAtppathChange()
 {
 	// TODO: Add your control notification handler code here
-	CMainFrame *pwnd=(CMainFrame *)AfxGetMainWnd();
+/*	CMainFrame *pwnd=(CMainFrame *)AfxGetMainWnd();
 	if(IDOK==pathchangedlg.DoModal())
 	{
 		m_atpprogpath=pathchangedlg.m_pathstr;
 		strcpy(theApp.pwnd->m_cnccontrol.Configstruct.FileInfo.catppath,m_atpprogpath);
 		m_atppathbtn.ShowWindow(false);
 		UpdateData(false);
-	}
+	}*/
 }
 
 
@@ -168,4 +169,5 @@ void CFileAndContentsView::OnSetfocusAtpprogpath()
 }
 
 
-*/
+
+

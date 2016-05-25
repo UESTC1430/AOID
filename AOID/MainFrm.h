@@ -184,7 +184,15 @@ public:
 	CncControl m_cnccontrol;
 
 	int MacModeStatus;//机床运行控制模式。0：正常模式、1：脱机模式、2：检修模式
-
+	ToolParaStruct m_toolparastruct[ATP_Tool_NUM];
+	DrillNote drillnote[128];//每个刀具所保存的参数结构体
+	SpecialPoints specialpoints;
+	bool AddMessageList(char *p,int num);
+	MessageList *m_firstMessage;
+	MessageList *m_CurrentMessage;
+	MessageList *m_PreviousMessage;
+	MessageList *m_tempMessage;//用于记录命令队列链表的临时指针
+	MessageList *m_temp2Message;//用于记录换刀后当前的链表位置的指针
 
 
 // 特性

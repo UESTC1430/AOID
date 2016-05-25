@@ -40,6 +40,12 @@ CMainFrame::CMainFrame()
 	m_pProgPaneWnd = NULL;
 	m_pToolPaneWnd = NULL;
 	m_pInfoPaneWnd = NULL;
+	m_firstMessage=NULL;//½«ÃüÁî×Ö·û´®Á´±íÖ¸Õë½øĞĞÖÃ¿Õ
+	m_CurrentMessage=NULL;//½«ÃüÁî×Ö·û´®Á´±íÖ¸Õë½øĞĞÖÃ¿Õ
+	m_PreviousMessage=NULL;//½«ÃüÁî×Ö·û´®Á´±íÖ¸Õë½øĞĞÖÃ¿Õ
+	m_tempMessage=NULL;//½«ÃüÁî×Ö·û´®Á´±íÁÙÊ±Ö¸Õë½øĞĞÖÃ¿Õ
+	m_temp2Message=NULL;//½«ÓÃÓÚ»»µ¶Ê±±£´æµÄÃüÁî×Ö·û´®Á´±íÖÃ¿Õ
+
 	int a=max(1,2);
 	cmdviewflag=false;//³õÊ¼»¯²»ÏÔÊ¾cmdview
 	theApp.m_nAppLook = theApp.GetInt(_T("ApplicationLook"), ID_VIEW_APPLOOK_VS_2008);
@@ -384,4 +390,17 @@ int CShowMessage::MessageInsert(MsgStruct *addnode)
 	}	
 	return 0;
 
+}
+bool CMainFrame::AddMessageList(char *p,int num)
+{
+	m_CurrentMessage=(MessageList*)malloc(sizeof(MessageList));
+	m_CurrentMessage->FlagCallBack=num;//¶Ô»Øµ÷±êÖ¾Î»½øĞĞ¸³Öµ
+	strcpy(m_CurrentMessage->m_MessageNote,p);//¶ÔÃüÁî×Ö·û´®½øĞĞ¸³Öµ
+	m_CurrentMessage->pnextmessage=NULL;
+	if(NULL==m_firstMessage)
+		m_firstMessage=m_CurrentMessage;
+	if(m_PreviousMessage!=NULL)
+		m_PreviousMessage->pnextmessage=m_CurrentMessage;
+	m_PreviousMessage=m_CurrentMessage;
+	return true;
 }

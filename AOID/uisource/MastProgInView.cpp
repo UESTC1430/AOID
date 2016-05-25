@@ -45,7 +45,6 @@ BEGIN_MESSAGE_MAP(CMastProgInView, CFormView)
 	ON_CBN_SELCHANGE(IDC_COMBOFILETYPE, &CMastProgInView::OnSelchangeComboFileType)
 	ON_NOTIFY(NM_DBLCLK, IDC_LISTFILENAME, &CMastProgInView::OnDblclkListfilename)
 	ON_STN_CLICKED(IDC_INPORT, &CMastProgInView::OnInport)
-	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LISTFILENAME, &CMastProgInView::OnLvnItemchangedListfilename)
 END_MESSAGE_MAP()
 
 
@@ -169,24 +168,114 @@ void CMastProgInView::OnInitialUpdate()
 
 // CMastProgInView 消息处理程序
 
-
+/********************************************************
+Function: OnSelchangeCombodrive
+Description: 磁盘选择列表框按键处理
+Input:     
+Output: 
+Return: 
+Others: 界面处理函数
+* ********************************************************/
 void CMastProgInView::OnSelchangeCombodrive()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	CString drive;
+	int isel;//选中盘符的索引号
+	//根据新的磁盘更新对应的文件
+	isel = m_diskdrive.GetCurSel();
+	m_diskdrive.GetLBText(isel,drive); //获得当前的盘符
+	this->m_pathstr=drive;
+	//	pwnd->m_pOpPaneWnd->m_pF2SubItem21View->m_pathstr=drive;//设置主程序导出视图路径
+	//	pwnd->m_pOpPaneWnd->m_pF2SubItem21View->m_diskdrive.SetCurSel(isel);//设置主程序导出视图磁盘选择
+	this->UpdateData(false);
+	pwnd->m_pathfuction->TraverseFolder(drive,&m_filenamelist,filetype);
+	//	pwnd->m_pathfuction->TraverseFolder(drive,&(pwnd->m_pOpPaneWnd->m_pF2SubItem21View->m_outfilenamelist),filetype);
 }
 
-
+/********************************************************
+Function: OnSelchangeComboFileType
+Description: 
+Input:     
+Output: 
+Return: 
+Others: 界面处理函数
+* ********************************************************/
 void CMastProgInView::OnSelchangeComboFileType()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	int num=m_filetype.GetCurSel();//combo box控件 被选中项
+	m_filetype.GetLBText(num,filetype);
+	pwnd->m_pathfuction->TraverseFolder(m_pathstr,&m_filenamelist,filetype);//m_pathstr 当前路径
+	return;
 }
 
-
+/********************************************************
+Function: OnDblclkListfilename
+Description: 双击文件名事件处理
+Input:     
+Output: 
+Return: 
+Others: 界面处理函数
+* ********************************************************/
 void CMastProgInView::OnDblclkListfilename(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-	// TODO: 在此添加控件通知处理程序代码
-	*pResult = 0;
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	CString file;
+	CString newpathandname;
+	int isel = (int)m_filenamelist.GetFirstSelectedItemPosition();//获取选中行的索引号
+	TCHAR szBuf[1024];
+	LVITEM lvi;
+	lvi.iItem = isel-1;//当前选中行的索引号赋值给行号
+	lvi.iSubItem = 0;
+	lvi.mask = LVIF_TEXT;
+	lvi.pszText = szBuf;
+	lvi.cchTextMax = 1024;
+	m_filenamelist.GetItem(&lvi);//获取当前选中行的信息 主要需要文件名
+	file=lvi.pszText;//选中行的文件名
+	pathandname=this->m_pathstr;
+	if(file=="..")//返回上一级（..文件夹）
+	{
+		newpathandname=	pwnd->m_pathfuction->GetLastpath(pathandname);
+		this->m_pathstr=newpathandname;
+		this->UpdateData(false);
+		pwnd->m_pathfuction->TraverseFolder(newpathandname,&m_filenamelist,filetype);
+		return;
+	}	
+	if(pwnd->m_pathfuction->GetLastChar(pathandname)=='\\')
+		pathandname = pathandname+file;
+	else
+		pathandname = pathandname+"\\"+file;
+	if(pwnd->m_pathfuction->FileIsDirectory(pathandname))
+	{
+		//遍历文件，左对齐显示
+		this->m_pathstr=pathandname;
+		this->UpdateData(false);
+		pwnd->m_pathfuction->TraverseFolder(pathandname,&m_filenamelist,filetype);
+		return;
+	}	
+	if(	pwnd->m_pathfuction->IsDrlFile(file))//是.drl/.Drl文件
+	{
+
+		int filenum=m_mainprofilename.FindString(-1,file);
+		if (filenum==LB_ERR)//当前选则的文件名是否已存在与下拉列表，若存在则显示，不存在则添加
+		{
+			m_mainprofilename.InsertString(filecount,file);
+			m_mainprofilename.SetCurSel(filecount);
+			filecount++;
+		}
+		else
+			m_mainprofilename.SetCurSel(filenum);
+
+		theApp.mastprog.SetImportFile(pathandname);
+		theApp.mastprog.ImportExe(&m_filecontentstr);
+		//更新显示
+		//	pwnd->m_pOpPaneWnd->m_pF2SubItem21View->m_outfilecontentstr=m_filecontentstr;//导出界面
+		UpdateData(false);
+	}
+	else
+	{
+		AfxMessageBox("文件格式不正确!");
+	}
 }
 
 
@@ -221,17 +310,143 @@ void CMastProgInView::OnActivateView(BOOL bActivate, CView* pActivateView, CView
 }
 
 
-
-
+/********************************************************
+Function: OnInport
+Description: 导入按键处理函数
+Input:     
+Output: 
+Return: 
+Others: 界面处理函数
+* ********************************************************/
 void CMastProgInView::OnInport()
 {
-	// TODO: 在此添加控件通知处理程序代码
-}
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	//MSGID msgid=DataInMastProg;
+	//MessageProcess(msgid);
+	if (this->m_filecontentstr.IsEmpty())
+	{
+		MSGID msgid=DataInMastProg;
+		MsgStruct *node=(MsgStruct*)malloc(sizeof(MsgStruct));
+		sprintf_s(node->message,"请选择要导入的主程序！");
+		node->messagegid=msgid;
+		node->next=NULL;
+		pwnd->errormsgqueue->MessageInsert(node);
+		free(node);
+		return;
+	}
+    
+//	msgid=DataInMastProg;
+	MsgStruct *node=(MsgStruct*)malloc(sizeof(MsgStruct));
+	sprintf_s(node->message,"导入主程序");
+//	node->messagegid=msgid;
+	node->next=NULL;
+	pwnd->operatemsgqueue->MessageInsert(node);
+//	pwnd->RecordDrillFile(configinfo.drillfileinfo.pathandfilename,false);
 
 
-void CMastProgInView::OnLvnItemchangedListfilename(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	// TODO: 在此添加控件通知处理程序代码
-	*pResult = 0;
+	//pwnd->Record("操作","导入主程序");//数据库记录
+	/*MachineRecordStruct merchinerecord;
+	merchinerecord.type = "操作";
+	merchinerecord.record = "导入主程序";
+	merchinerecord.operatorID = pwnd->userdatastruct.m_UserId;
+	theApp.cncdatabase.AddMachineRecord(&merchinerecord);*/
+
+	strcpy(pwnd->m_cnccontrol.Configstruct.FileInfo.cmastprogfilename,pathandname);//将路径和文件名保存到配置文件数据结构中
+	//新导入文件，更改安全区域为最大区域
+	pwnd->m_cnccontrol.InitModefyWorkLimit();
+   
+   //		dlg.DoModal();//2013.11.13临时关闭LG
+   //-------------------------------------------------------------------------------
+//0324文件解析	
+    theApp.mastprog.ParseAnly(this->m_filecontentstr,pwnd->m_toolparastruct,pwnd->drillnote,&pwnd->specialpoints);
+	//char *m_filecontentstr2=this->m_filecontentstr.GetBuffer(0);
+	//theApp.mastprog.ProcessT(m_filecontentstr2,&(pwnd->m_toolparastruct));
+  //  pwnd->m_cnccontrol.Configstruct.CurrentDrillInfo.currentwork_ver=theApp.mastprog.structdrill.m_DrillEnvPara.STRUCTHOLE_VER;//导入新生产程序后，工作坐标系将更新
+	//-------------------------------------------------------------------------------
+	if(pwnd->m_firstMessage)//每次导入的时候都要将字符串命令链表做清空
+	{
+		while(pwnd->m_firstMessage->pnextmessage)
+		{
+			pwnd->m_tempMessage=pwnd->m_firstMessage->pnextmessage;
+			pwnd->m_firstMessage->pnextmessage=pwnd->m_tempMessage->pnextmessage;
+			free(pwnd->m_tempMessage);
+		}	
+		free(pwnd->m_firstMessage);
+		pwnd->m_firstMessage=NULL;//释放完占用的空间后将所有指针置空
+		pwnd->m_tempMessage=NULL;
+		pwnd->m_CurrentMessage=NULL;
+		pwnd->m_PreviousMessage=NULL;
+	}
+	//-------------------------------------------------------------------------------
+	int count=0;
+//	if(NULL!=m_OriPosition)
+	if(NULL!=theApp.mastprog.m_OriPosition)
+	{
+		//HolePosNode *temp=m_OriPosition;
+		HolePosNode *temp;
+		temp= (HolePosNode *)theApp.mastprog.m_OriPosition;
+//		pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_toolinAtpFlag=pwnd->FindToolInAtp();//根据刀具直径与ATP中的刀具匹配,匹配失败在程序执行按钮处理
+		/*if(pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_PfirstNoteinBitMap)//若不为空，则清空 （清除以前的位图信息链表）
+			pwnd->m_pOpPaneWnd->m_pF3SubItem1View->DeleteBitMapDataLink(pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_PfirstNoteinBitMap);*/
+		//-------------------------------------------------
+		//以下部分是对打孔监视界面图形进行重绘
+		/*if(theApp.mastprog.m_WorkPosition==NULL)
+		{
+			theApp.mastprog.m_WorkPosition=(HoleInfoNode *)malloc(sizeof(HolePosNode));//分配内存空间 用于存放复制的链表
+		}*/
+		///CopyHolePosNode(m_OriPosition,m_WorkPosition);//复制打孔文件链表
+	//	theApp.mastprog.CreateAndCopyHolePosNode(theApp.mastprog.m_WorkPosition);//( HolePosNode *)theApp.mastprog.m_OriPosition,( HolePosNode *)theApp.mastprog.m_WorkPosition);//复制打孔文件链表
+		////////////////////////////////////////
+	
+	 /*  pwnd->m_pOpPaneWnd->m_pF3SubItem1View->FVProcessBeforeDraw((HolePosNode *)theApp.mastprog.m_WorkPosition);
+		pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_dcHole.FillSolidRect(0,0,DISPZONEWIDE,DISPZONEHEIGHT,RGB(255,255,255));//更新客户区 1. 黑色变白色 2.覆盖之前的图形*/
+		//pwnd->m_pOpPaneWnd->m_pF3SubItem2View->m_dcHole.CreateCompatibleDC(GetDC());
+	    //pwnd->m_pOpPaneWnd->m_pF3SubItem2View->m_dcHole.FillSolidRect(0,0,DISPZONEWIDE,DISPZONEHEIGHT,RGB(255,255,255));//更新客户区 1. 黑色变白色 2.覆盖之前的图形*/
+	//	pwnd->m_pOpPaneWnd->m_pF3SubItem2View->InitDrawHoleBmp(( HolePosNode *)theApp.mastprog.m_WorkPosition);
+		
+		/*pwnd->BoundryFlag=pwnd->m_pOpPaneWnd->m_pF3SubItem1View->CompareBoundry(( HolePosNode *)theApp.mastprog.m_WorkPosition);
+		if(pwnd->BoundryFlag==false)
+		{
+			MSGID msgid=BOUNDARY;
+			MsgStruct *node=(MsgStruct*)malloc(sizeof(MsgStruct));
+			sprintf(node->message,"生产程序超出边界！");
+			node->messagegid=msgid;
+			node->next=NULL;
+			 pwnd->errormsgqueue->MessageInsert(node);
+		}
+		else
+		{		
+			MSGID msgid=DRILL;
+			MsgStruct *node=(MsgStruct*)malloc(sizeof(MsgStruct));
+			sprintf(node->message,"等待钻孔");
+			node->messagegid=msgid;
+			node->next=NULL;
+            pwnd->operatemsgqueue->MessageInsert(node);
+
+		}*/
+		//pwnd->m_pInfoPaneWnd->m_pInfoView->SwitchFileName();//显示导入的文件名、格式
+		//pwnd->m_pInfoPaneWnd->m_pInfoView->SwitchFV(pwnd->m_cnccontrol.Configstruct.CurrentDrillInfo.currentwork_ver);//主界面显示当前工作坐标系
+		//pwnd->m_pInfoPaneWnd->m_pInfoView->SetFVValues_Origin(theApp.mastprog.m_WorkPosition->position.nXs,theApp.mastprog.m_WorkPosition->position.nYs);
+		////////////////////////////////////////
+		//ProcessMirro(structdrill.m_DrillEnvPara.STRUCTHOLE_VER,m_WorkPosition);	//用复制的孔位信息链表进行坐标变换操作，再用于显示
+		//pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_dcHole.FillSolidRect(0,0,DISPZONEWIDE,DISPZONEHEIGHT,RGB(255,255,255));//更新客户区 1. 黑色变白色 2.覆盖之前的图形
+		//pwnd->m_pOpPaneWnd->m_pF3SubItem2View->DrawHoleBmp(pwnd->codeboundary,m_WorkPosition,0,0);
+		//////////////////////////////////////////////////
+		
+		//-------------------------------------------------
+		//以下部分是每次导入时删除原来的执行程序窗口中的CListCtrl中所有行，并且将行号清零
+	/*	pwnd->m_pOpPaneWnd->m_pF3SubItem1View->FlagNum=0;
+		pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_index=0;
+		for(int k=pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_ListFileContents.GetItemCount();k>=-1;k--)
+			pwnd->m_pOpPaneWnd->m_pF3SubItem1View->m_ListFileContents.DeleteItem(k);
+	}
+	else
+	{
+		AfxMessageBox("打孔文件内容为空!");
+	}
+	pwnd->m_pOpPaneWnd->SwitchToView(VIEW_F3SUBITEM1);
+	pwnd->m_pMenuPaneWnd->m_pProgView->OnF3();//F3按下状态
+	pwnd->m_pOpPaneWnd->m_pF3SubItem1View->icopy =1;*/
+	}
+
 }

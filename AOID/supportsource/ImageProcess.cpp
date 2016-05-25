@@ -161,7 +161,7 @@ bool CImageProcess::GetHighQHole(Mat mat,vector<Point>contour,int &max_num)
 		circles1.y=(b+b2)/2.0; 
 		circles1.R=(r+r2)/2.0;
 		circles.push_back(circles1);	
-		Moments mu;
+ 		Moments mu;
 		mu=moments(contours_temp[max_num]);
 		circles1.x=(mu.m10)*0.1/(mu.m00);
 		circles1.y=(mu.m01)*0.1/(mu.m00);
@@ -747,22 +747,22 @@ bool CImageProcess:: FourPiontPosition(	vector<circlestruct>  locationincam,vect
 
 
 	double camoff= ((double)locationincam[0].y-(double)locationincam[1].y) * ((double)locationincam[0].y-(double)locationincam[1].y)+  ((double)locationincam[0].x-(double)locationincam[1].x)*  ((double)locationincam[0].x-(double)locationincam[1].x);
-	double cam=sqrt(camoff);
+	double cam=sqrt(camoff)*56;
 
 	double camoff2= ((double)locationincam[0].y-(double)locationincam[2].y) * ((double)locationincam[0].y-(double)locationincam[2].y)+  ((double)locationincam[0].x-(double)locationincam[2].x)*  ((double)locationincam[0].x-(double)locationincam[2].x);
-	double cam2=sqrt(camoff2);
+	double cam2=sqrt(camoff2)*56;
 
 	double camoff3= ((double)locationincam[0].y-(double)locationincam[3].y) * ((double)locationincam[0].y-(double)locationincam[3].y)+  ((double)locationincam[0].x-(double)locationincam[3].x)*  ((double)locationincam[0].x-(double)locationincam[3].x);
-	double cam3=sqrt(camoff3);
+	double cam3=sqrt(camoff3)*56;
 
 	double camoff4= ((double)locationincam[1].y-(double)locationincam[2].y) * ((double)locationincam[1].y-(double)locationincam[2].y)+  ((double)locationincam[1].x-(double)locationincam[2].x)*  ((double)locationincam[1].x-(double)locationincam[2].x);
-	double cam4=sqrt(camoff4);
+	double cam4=sqrt(camoff4)*56;
 
 	double camoff5= ((double)locationincam[1].y-(double)locationincam[3].y) * ((double)locationincam[1].y-(double)locationincam[3].y)+  ((double)locationincam[1].x-(double)locationincam[3].x)*  ((double)locationincam[1].x-(double)locationincam[3].x);
-	double cam5=sqrt(camoff5);
+	double cam5=sqrt(camoff5)*56;
 
 	double camoff6= ((double)locationincam[2].y-(double)locationincam[3].y) * ((double)locationincam[2].y-(double)locationincam[3].y)+  ((double)locationincam[2].x-(double)locationincam[3].x)*  ((double)locationincam[2].x-(double)locationincam[3].x);
-	double cam6=sqrt(camoff6);
+	double cam6=sqrt(camoff6)*56;
 
 	float angle_f1,angle_c1,angle_f2,angle_c2,angle_f3,angle_c3,angle_f4,angle_c4,angle_f5,angle_c5,angle_f6,angle_c6;
 
@@ -789,10 +789,10 @@ bool CImageProcess:: FourPiontPosition(	vector<circlestruct>  locationincam,vect
 	angle_f6=(atan2f((locationinfile[2].y-locationinfile[3].y),(locationinfile[2].x-locationinfile[3].x)))*180/PI;
 
 	angle_c6=(atan2f((locationincam[2].y-locationincam[3].y),(locationincam[2].x-locationincam[3].x)))*180/PI;
-	float matchscale_temp=(file2/cam2+file/cam+file3/cam3+file4/cam4+file5/cam5+file6/cam6)/6;
+	float matchscale_temp=(file/cam+file2/cam2+file3/cam3+file4/cam4+file5/cam5+file6/cam6)/6;
 	float matchangle_temp=(angle_c1-angle_f1+angle_c2-angle_f2+angle_c3-angle_f3+angle_c4-angle_f4+angle_c5-angle_f5+angle_c6-angle_f6)/6;
-	matchscale=(((int)matchscale_temp*100)*1.0)/100;
-	matchangle=(((int)matchangle_temp*100)*1.0)/100;
+	matchscale=matchscale_temp;//(((int)matchscale_temp*100)*1.0)/100;
+	matchangle=matchangle_temp;//(((int)matchangle_temp*100)*1.0)/100;
 	return true;
 }
 

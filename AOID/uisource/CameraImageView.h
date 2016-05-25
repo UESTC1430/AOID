@@ -95,6 +95,12 @@ protected:
 	afx_msg void OnMButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+public:
+	bool ProgressInRectfile(CPoint start,CPoint end);	
+	bool GetSelectCircleFill(int x,int y);//根据x，y值求选中行
+	bool ProgressInRectCam(CPoint start,CPoint end);
+	bool GetSelectCircleCam(int x, int y);//根据x，y值求选中行
+	afx_msg void OnBnClickedgettestimage();
 };
 
 

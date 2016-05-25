@@ -47,6 +47,7 @@ BEGIN_MESSAGE_MAP(CCameraImageView, CFormView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MBUTTONUP()
 	ON_WM_MBUTTONDOWN()
+	ON_BN_CLICKED(IDC_gettestimage, &CCameraImageView::OnBnClickedgettestimage)
 END_MESSAGE_MAP()
 
 // CCameraImageView 诊断
@@ -176,7 +177,7 @@ void CCameraImageView::InputImage()
 
 
 void CCameraImageView::OnGetPiont()
-{
+ {
 	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
 	pwnd->m_imageprocess.GetHole(pwnd->m_imageprocess.resultimage);
 	if (0==pwnd->m_imageprocess.circles.size())
@@ -250,11 +251,11 @@ void CCameraImageView::OnCutImage()
 	cutimageresult.copyTo(pwnd->m_imageprocess.cut_1);
 	//imwrite("F:\\result1.bmp",dst);
 
-	imwrite("G:\\4点定位剪切图.bmp",pwnd->m_imageprocess.cut_1);
+	imwrite("4点定位剪切图.bmp",pwnd->m_imageprocess.cut_1);
 	pwnd->m_imageprocess.GetHole(cutimageresult);
 
-	Mat test=imread("G:/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
-	Mat test2=imread("G:/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
+	Mat test=imread("F:/AOID/AOID/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
+	Mat test2=imread("F:/AOID/AOID/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
 	for(int i = 0; i < pwnd->m_imageprocess.circles.size(); i++)//把霍夫变换检测出的圆画出来
 	{
 		Point center(cvRound(pwnd->m_imageprocess.circles[i].x), cvRound(pwnd->m_imageprocess.circles[i].y));
@@ -263,10 +264,10 @@ void CCameraImageView::OnCutImage()
 		circle( test2, center, radius, Scalar(0, 0, 255),-1 );
 	}
 
-	imwrite("G:/4点定位找圆.bmp",test);
-	imwrite("G:/4点定位找圆_论文.bmp",test2);
-	Mat test3=imread("G:/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
-	Mat test4=imread("G:/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
+	imwrite("4点定位找圆.bmp",test);
+	imwrite("4点定位找圆_论文.bmp",test2);
+	Mat test3=imread("F:/AOID/AOID/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
+	Mat test4=imread("F:/AOID/AOID/4点定位剪切图.bmp", CV_LOAD_IMAGE_COLOR );
 
 	HoleInfoNode *curr3=theApp.mastprog.m_OriPosition->pnext;
 	while(curr3!=NULL)
@@ -277,210 +278,10 @@ void CCameraImageView::OnCutImage()
 		circle( test4, center, radius, Scalar(0, 0, 255),-1 );
 		curr3=curr3->pnext;
 	}
-	imwrite("G:/4点定位与加工文件.bmp",test3);
-	imwrite("G:/4点定位与加工文件_论文.bmp",test4);
+	imwrite("4点定位与加工文件.bmp",test3);
+	imwrite("4点定位与加工文件_论文.bmp",test4);
+	//DrawcvMat(cutimageresult,IDC_CAMIMG,1);
 	DrawcvMat(cutimageresult,IDC_CAMIMG,1);
-
-   /* DrawcvMat(cutimageresult,IDC_CAMIMG,1);
-	CWnd *pWin = GetDlgItem(IDC_CAMIMG);
-	pWin->GetClientRect(rectcam);
-	m_rectcam = pWin->GetDC();
-	//---------------------------------------------------------------------zns0915
-	Xlu=xpcbmin;
-	Ylu=ypcbmin;
-	filescale=start_filescale;
-	/*CBrush brush,*oldbrush; 
-	brush.CreateSolidBrush(RGB(255,0,0)); 
-	oldbrush=m_rectcam->SelectObject(&brush); 
-	for (int i=0;i<4;i++)
-	{	
-		int x1=(locationinfile[i].x-xpcbmin-locationinfile[i].R)*filescale;
-		int x2=(locationinfile[i].x-xpcbmin+locationinfile[i].R)*filescale;
-		int y1=(locationinfile[i].y-ypcbmin-locationinfile[i].R)*filescale;
-		int y2=(locationinfile[i].y-ypcbmin+locationinfile[i].R)*filescale;
-		m_rectcam->Ellipse(x1,y1,x2,y2);
-	}
-	 m_rectcam->SelectObject(oldbrush);*
-
-	CBrush brush,*oldbrush;
-	HoleInfoNode *curr3=theApp.mastprog.m_OriPosition->pnext;
-	brush.CreateSolidBrush(RGB(255,0,0)); 
-	oldbrush=m_rectcam->SelectObject(&brush); 
-	 while(curr3!=NULL)
-	{	
-		int x1=(curr3->position.nXs-xpcbmin-(curr3->position.diameter)/2)*filescale;
-		int x2=(curr3->position.nXs-xpcbmin+(curr3->position.diameter)/2)*filescale;
-		int y1=(curr3->position.nYs-ypcbmin-(curr3->position.diameter)/2)*filescale;
-		int y2=(curr3->position.nYs-ypcbmin+(curr3->position.diameter)/2)*filescale;
-		m_rectcam->Ellipse(x1,y1,x2,y2);
-		 curr3=curr3->pnext;
-	}
-	m_rectcam->SelectObject(oldbrush);
-	
-	
-
-	//-----------------------------------------------------------------------------
-	/*Point2i location10;//存放中心点
-	location10.x=locationincam[0].x-2048;
-	location10.y=locationincam[0].y-2400;//相对图片中心点的坐标
-	Point2i location11;//旋转后(6310*6310图片的坐标)
-	float sinx=sinf(matchangle*PI/180);
-	float cosx=cosf(matchangle*PI/180);
-	location11.x=(location10.x)*cosx-(location10.y)*sinx+3155;//最后项为坐标偏移
-	location11.y=(location10.x)*sinx+(location10.y)*cosx+3155;
-	Rect box;//剪切结果区域
-	box.x=location11.x-(int)(locationinfile[0].x/matchscale);//
-	box.y=location11.y-(int)(locationinfile[0].y/matchscale);//
-	box.width=xpcbmax/matchscale;
-	box.height=ypcbmax/matchscale;
-	Mat cutimageresult(pwnd->m_imageprocess.rotateimage,box);
-	pwnd->m_imageprocess.GetHole(cutimageresult);
-	DrawcvMat(cutimageresult,IDC_CAMIMG,1);*/
-
-
-
-
-
-
-
-	
-
-
-
-	//__________________________________________________________zns
-/*	pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles.clear();
-	circlestruct   inputcircles1;
-	if (theApp.mastprog.m_OriPosition==NULL)
-	{
-		MessageBox(_T("未导入文件"),_T("提示"),MB_OK);
-		return ;
-	}
-	HoleInfoNode *curr=theApp.mastprog.m_OriPosition->pnext;
-	int nummast=0;
-	circlestruct  xmaxpoint,xminpoint,ymaxpoint,yminpoint;
-	xmaxpoint.x=0;
-	ymaxpoint.y=0;
-	xminpoint.x=xpcbmax;
-	yminpoint.y=ypcbmax;
-	while(curr!=NULL)
-	{
-		//单位均转换为微米级
-		inputcircles1.x=curr->position.nXs;
-		inputcircles1.y=curr->position.nYs;
-		inputcircles1.R=curr->position.diameter*500;
-		pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles.push_back(inputcircles1);
-		if (inputcircles1.x>xmaxpoint.x)
-		{
-			xmaxpoint=inputcircles1;
-		}
-		if (inputcircles1.y>ymaxpoint.y)
-		{
-			ymaxpoint=inputcircles1;
-		}
-		if (inputcircles1.x<xminpoint.x)
-		{
-			xminpoint=inputcircles1;
-		}
-		if (inputcircles1.y>yminpoint.y)
-		{
-			yminpoint=inputcircles1;
-		}
-		curr=curr->pnext;
-		nummast++;
-	}
-	if (nummast!=pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles.size())
-	{
-    	MessageBox(_T("文件提取圆错误"),_T("错误"),MB_OK);
-	}
-	sort(pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles.begin(),pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles.end(),lessmark); 
-	pwnd->m_imageprocess.GetHole(pwnd->m_camera.img);
-	pwnd->m_imageprocess.contours;
-	sort(pwnd->m_imageprocess.circles.begin(),pwnd->m_imageprocess.circles.end(),lessmark);*/
-   /* pwnd->m_imageprocess.GetHole(pwnd->m_camera.img);
-	sort(pwnd->m_imageprocess.contours.begin(),pwnd->m_imageprocess.contours.end(),maxsize);
-	pwnd->m_imageprocess.contours;
-	int xmax=0,ymax=0;
-	Rect box;
-	box.x=contours1[0][0].x;
-	box.y=contours1[0][0].y;
-	for(int i=0;i<contours1[0].size();i++)
-	{
-		if (contours1[0][i].x<box.x)
-		{
-			box.x=contours1[0][i].x;
-		}
-		if (contours1[0][i].y<box.y)
-		{
-			box.y=contours1[0][i].y;
-		}
-		if (contours1[0][i].x>xmax)
-		{
-			xmax=contours1[0][i].x;
-		}
-		if (contours1[0][i].y>ymax)
-		{
-			ymax=contours1[0][i].y;
-		}
-
-	}
-	box.width=xmax-box.x;
-	box.height=ymax-box.y;
-	Mat cutimageresult2(pwnd->m_imageprocess.rotateimage,box);
-	DrawcvMat(cutimageresult2,IDC_CAMIMG,1);
-	//---------------------------------------------------------------------------------------zns
-	//矫正算法：默认位置偏差不大
-	/*circlestruct circle1,circle2;//加工文件上选取两个定位圆,单位微米
-	circle1=pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles[0];
-	circle2=pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles[pwnd->m_pOpPaneWnd->m_pF1SubItem2View->inputcircles.size()-1];
-	circlestruct camcircle1,camcircle2;//摄像头采集图片上的定位圆
-	camcircle1=pwnd->m_imageprocess.circles[0];//左上角的圆
-	camcircle2=pwnd->m_imageprocess.circles[0];
-
-	int angle=atanf((circle1.y-circle2.y)/(circle1.x-circle2.x))-atanf((camcircle1.y-camcircle2.y)/(camcircle1.x-camcircle2.x));
-	Mat resultiamge;
-	pwnd->m_imageprocess.ImageRotate(pwnd->m_camera.img,angle);
-
-	//---------------------------------------------------------------------------------------
-	pwnd->m_imageprocess.contours;
-	//-------------------------------------------------------------图像的定位
-	
-	findContours(pwnd->m_imageprocess.rotateimage,contours1,CV_RETR_LIST,CV_CHAIN_APPROX_NONE);//提取的外轮廓
-	int xmax=0,ymax=0;
-	Rect box;
-	box.x=contours1[0][0].x;
-	box.y=contours1[0][0].y;
-	for(int i=0;i<contours1[0].size();i++)
-	{
-	if (contours1[0][i].x<box.x)
-	{
-	box.x=contours1[0][i].x;
-	}
-	if (contours1[0][i].y<box.y)
-	{
-	box.y=contours1[0][i].y;
-	}
-	if (contours1[0][i].x>xmax)
-	{
-	xmax=contours1[0][i].x;
-	}
-	if (contours1[0][i].y>ymax)
-	{
-	ymax=contours1[0][i].y;
-	}
-
-	}
-	box.width=xmax-box.x;
-	box.height=ymax-box.y;
-	Mat cutimageresult2(pwnd->m_imageprocess.rotateimage,box);
-	DrawcvMat(cutimageresult2,IDC_CAMIMG,1);*/
-	//-----------------------------------------------------------zns
-/*	Rect box;//剪切结果区域widt
-	box.x=0;
-	box.y=0;
-	box.width=4000;
-	box.height=4000;
-	Mat cutimageresult(pwnd->m_imageprocess.rotateimage,box);*/
-//	DrawcvMat(cutimageresult,IDC_CAMIMG,1);
 }
 
 
@@ -519,12 +320,16 @@ void CCameraImageView::DrawcvMat(Mat mat, UINT ID,bool flag)//显示mat在picture控
 		camscale=scale1;
 	dsize = Size(mat.cols*camscale,mat.rows*camscale);
 	resize(mat,img,dsize);
+	int width=mat.cols*camscale;
+	int height=mat.rows*camscale;
 	IplImage* drawing_ipl = &IplImage(img);
 	CvvImage Cvvimg;
 	Cvvimg.CopyOf(drawing_ipl);
+	CRect rect1 = CRect(rect.TopLeft(), CSize(width,height));
 	// 将图片绘制到显示控件的指定区域内
-	Cvvimg.DrawToHDC(hDC, &rect );
+	Cvvimg.DrawToHDC(hDC, &rect1 );
 	ReleaseDC(pDC);	
+
 
 }
 
@@ -540,19 +345,279 @@ void CCameraImageView::OnBnClickedHough()
 	//DrawcvMat(mat,IDC_CAMIMG,1);
 }
 
+bool CCameraImageView::ProgressInRectfile(CPoint start,CPoint end)
+{
+	int wide,height;
+	wide = abs(start.x-end.x);
+	height = abs(start.y-end.y);
+	if(start==end)//为单击选点
+	{
+		GetSelectCircleFill(start.x,start.y);//找出的圆放在location中
+		return true;
+	}
+/*	if (0!=wide&&0!=height)//选择的为区域
+	{
+		CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+		CWnd *pWin = GetDlgItem(IDC_MASTINIMAGE);
+		pWin->GetClientRect(rectfile);
+		m_rectfile = pWin->GetDC();
+		int Width=rectfile.Width();
+		int Height=rectfile.Height();
+       //放大区域左上角在加工文件中的坐标
+    	 Xlu+=start.x/filescale;
+		 Ylu+=start.y/filescale;
+		 float xscale,yscale,scalepp;
+		 xscale=wide*(1.0)/Width;
+		 yscale=height*(1.0)/Height;
+		if(xscale<yscale)
+        	scalepp=xscale;
+		else
+			scalepp=yscale;
+
+		//计算新的实际尺寸与像素的比例因子，和pcb的坐标
+		filescale =filescale*scalepp;//新比例
+		m_rectfile->FillSolidRect(0,0,Width,Height,RGB(255,255,255));//更新客户区 1. 黑色变白色 2.覆盖之前的图形
+		//绘图边界
+		int wideinfile=wide/filescale;
+		int heightinfile=height/filescale;
+		HoleInfoNode *curr=theApp.mastprog.m_OriPosition->pnext;
+		while(curr->pnext!=NULL)
+		{
+			int x,y,R;
+			x=curr->position.nXs-Xlu;
+			y=curr->position.nYs-Ylu;
+			R=curr->position.diameter/2;
+			if (x>0&&x<wideinfile&&y>0&&y<heightinfile)
+			{
+				 m_rectfile->Ellipse((x-R-Xlu)*filescale,(y-R-Ylu)*filescale,(x+R-Xlu)*filescale,(y+R-Ylu)*filescale);
+			}
+			curr=curr->pnext;
+		}
+		return true;
+	}*/
+	return false;
+}
+
+bool CCameraImageView::GetSelectCircleFill(int x,int y)
+{
+
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	int x1,y1;
+	int x2,y2;
+	double x0,y0;
+	double diameter,radius;
+	int radiusx,radiusy;
+	if (NULL==theApp.mastprog.m_OriPosition)
+		return false;
+	HoleInfoNode *pnode;
+	pnode = theApp.mastprog.m_OriPosition->pnext;
+	x=x/filescale+Xlu;
+	y=y/filescale+Ylu;
+	circlestruct  end,temp;
+	bool  ALD=0;
+	while(pnode)
+	{
+		diameter = pnode->position.diameter;
+		radius = diameter/2;
+		x0=pnode->position.nXs;
+		y0=pnode->position.nYs;
+		x1 = int(x0-2*radius);
+		y1 = int(y0-2*radius);
+		x2 = int(x0+2*radius);
+		y2 = int(y0+2*radius);	
+		if(x<=x2&&x>=x1&&y<=y2&&y>=y1)
+		{
+			//这里找到所在的圆;
+			if (ALD==1)
+			{
+				temp.x=pnode->position.nXs;
+				temp.y=pnode->position.nYs;
+				temp.R=(pnode->position.diameter)/2;
+				if ((temp.x-x)*(temp.x-x)+(temp.y-y)*(temp.y-y)<(end.x-x)*(end.x-x)+(end.y-y)*(end.y-y))
+				{	
+					end=temp;
+				}
+
+			}
+			else
+			{
+				end.x=pnode->position.nXs;
+				end.y=pnode->position.nYs;
+				end.R=(pnode->position.diameter)/2;
+				ALD=1;
+			}
+		}
+		pnode=pnode->pnext;
+	}
+	locationinfile.push_back(end);
+	return true;
+}
+
+bool CCameraImageView::ProgressInRectCam(CPoint start,CPoint end)
+{
+	int wide,height;
+	wide = abs(start.x-end.x);
+	height = abs(start.y-end.y);
+	if(start==end)//为单击选点
+	{
+		GetSelectCircleCam(start.x,start.y);//找出的圆放在location中
+		return true;
+	}
+	if (0!=wide&&0!=height)//选择的为区域
+	{
+		FillRect(m_rectcam->GetSafeHdc(),rectcam,CBrush(RGB(255,255,255)));//将控件背景转为白色
+		//------------------------添加处理
+		return true;
+	}
+	return false;
+}
+
+bool CCameraImageView::GetSelectCircleCam(int x, int y)
+{
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	int x1,y1;
+	int x2,y2;
+	double x0,y0;
+	double diameter,radius;
+	int radiusx,radiusy;
+	int num=pwnd->m_imageprocess.circles.size();
+	if (0==num)
+	{
+		MessageBox(NULL,_T("未找到圆"),MB_OK);
+		return false;
+	}
+	x=x/camscale;
+	y=y/camscale;
+	circlestruct  end,temp;
+	bool ALD=0;
+	for(int i=0;i<num;i++)
+	{
+		radius=pwnd->m_imageprocess.circles[i].R;
+		x1 =(pwnd->m_imageprocess.circles[i].x)-2*radius;
+		x2 =(pwnd->m_imageprocess.circles[i].x)+2*radius;
+		y1 =(pwnd->m_imageprocess.circles[i].y)-2*radius;
+		y2 =(pwnd->m_imageprocess.circles[i].y)+2*radius;
+		if(x<=x2&&x>=x1&&y<=y2&&y>=y1)
+		{
+			if (ALD==1)
+			{
+				temp=pwnd->m_imageprocess.circles[i];
+				if ((temp.x-x)*(temp.x-x)+(temp.y-y)*(temp.y-y)<(end.x-x)*(end.x-x)+(end.y-y)*(end.y-y))
+				{
+					end=temp;
+				}
+			}
+			else
+			{
+				ALD=1;
+				end=pwnd->m_imageprocess.circles[i];
+			}	
+		}
+	}
+	locationincam.push_back(end);
+	return true;
+}
+
 void CCameraImageView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	//CClientDC dc(this);
 	//OnPrepareDC(&dc,NULL);
 	//dc.DPtoLP(&point);
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
 
+	//-----------------------------
+	CWnd *pWin1= GetDlgItem(IDC_MASTINIMAGE);
+	pWin1->GetWindowRect(rectfile);
+	CWnd *pWin2= GetDlgItem(IDC_CAMIMG);
+	pWin2->GetWindowRect(rectcam);
+	ScreenToClient(rectfile);
+	ScreenToClient(rectcam);
+	//--------------------------------------------------------------------
+	this->SetFocus();
+
+	//--------------------------------------------
+	//求鼠标所在点在客户区中的坐标
+	inrectfile=false;
+	inrectcam=false;
+	int x,y;
+	CPoint p;	
+	p = point;
+	startpoint = p;
+	mouseexflag = true; //鼠标按下标记
+	CRect test;
+	test=rectfile;
+	if (p.x>rectfile.left&&p.x<rectfile.right&&p.y>rectfile.top&&p.y<rectfile.bottom)
+	{
+		startpoint.x-=rectfile.left;
+		startpoint.y-=rectfile.top;
+		inrectfile=true;
+		return;
+	}
+	if (p.x>rectcam.left&&p.x<rectcam.right&&p.y>rectcam.top&&p.y<rectcam.bottom)//在摄像头图片拍摄区域
+	{
+		startpoint.x-=rectcam.left;
+		startpoint.y-=rectcam.top;
+		inrectcam=true;
+		return;
+	}
+
+	/*
 	ASSERT(m_camimg);
 	m_camimg.OnLButtonDown(nFlags,point);
 	CView::OnLButtonDown(nFlags, point);
+	*/
 }
 
 void CCameraImageView::OnLButtonUp(UINT nFlags, CPoint point)
 {
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	CWnd *pWin1= GetDlgItem(IDC_MASTINIMAGE);
+	pWin1->GetWindowRect(rectfile);
+	CWnd *pWin2= GetDlgItem(IDC_CAMIMG);
+	pWin2->GetWindowRect(rectcam);
+	ScreenToClient(rectfile);
+	ScreenToClient(rectcam);
+	if(mouseexflag == true)
+	{
+		mouseexflag = false;
+		int x,y;	
+		float xscalepp,yscalepp;
+		//求鼠标所在点在客户去中的坐标
+		CPoint p;
+		p = point;
+		endpoint=p;
+		if (true==inrectfile)
+		{
+			if (p.x>rectfile.left&&p.x<rectfile.right&&p.y>rectfile.top&&p.y<rectfile.bottom)//在读文件区
+			{
+				endpoint.x-=rectfile.left;
+				endpoint.y-=rectfile.top;
+				ProgressInRectfile(startpoint,endpoint);  
+			}
+			else
+			{
+				pwnd->m_pProgPaneWnd->m_pProgressView->WarnMessage("加工文件显示区选择超界",red);
+				return;
+			}
+
+		}
+		if (true==inrectcam)
+		{
+			if (p.x>rectcam.left&&p.x<rectcam.right&&p.y>rectcam.top&&p.y<rectcam.bottom)//在摄像头采集区
+			{
+				endpoint.x-=rectcam.left;
+				endpoint.y-=rectcam.top;
+				ProgressInRectCam(startpoint,endpoint);
+			}
+			else
+			{
+				pwnd->m_pProgPaneWnd->m_pProgressView->WarnMessage("摄像头显示区选择超界",red);
+				return;
+			}
+
+		}
+	}
+	/*
 	CClientDC dc(this);
 	OnPrepareDC(&dc,NULL);
 	dc.DPtoLP(&point);
@@ -560,6 +625,7 @@ void CCameraImageView::OnLButtonUp(UINT nFlags, CPoint point)
 	ASSERT(m_camimg);
 	m_camimg.OnLButtonUp(nFlags,point);
 	CView::OnLButtonUp(nFlags, point);
+	*/
 }
 
 void CCameraImageView::OnMButtonDown(UINT nFlags, CPoint point)
@@ -575,6 +641,7 @@ void CCameraImageView::OnMButtonDown(UINT nFlags, CPoint point)
 
 void CCameraImageView::OnMButtonUp(UINT nFlags, CPoint point)
 {
+	
 	CClientDC dc(this);
 	OnPrepareDC(&dc,NULL);
 	dc.DPtoLP(&point);
@@ -582,6 +649,7 @@ void CCameraImageView::OnMButtonUp(UINT nFlags, CPoint point)
 	ASSERT(m_camimg);
 	m_camimg.OnMButtonUp(nFlags,point);
 	CView::OnMButtonUp(nFlags, point);
+	
 }
 
 void CCameraImageView::OnMouseMove(UINT nFlags, CPoint point)
@@ -606,4 +674,14 @@ BOOL CCameraImageView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	return CView::OnMouseWheel(nFlags, zDelta ,pt);
 
 
+}
+
+
+void CCameraImageView::OnBnClickedgettestimage()
+{
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	pwnd->m_imageprocess.resultimage=imread("F:/4点定位剪切图.bmp", CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR );
+	//pwnd->m_imageprocess.resultimage=imread("G:/采集实图.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR);
+	//m_camimg.ShowImage(pwnd->m_imageprocess.resultimage,0);
+	DrawcvMat(pwnd->m_imageprocess.resultimage,IDC_CAMIMG,1);
 }

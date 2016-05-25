@@ -440,7 +440,7 @@
       <Filter>头文件\supportsource</Filter>
     </ClInclude>
     <ClInclude Include="otheruisource\PathFunction.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\otheruisource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -580,10 +580,7 @@
       <Filter>源文件\supportsource</Filter>
     </ClCompile>
     <ClCompile Include="otheruisource\PathFunction.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="imageanalysis.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\otheruisource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

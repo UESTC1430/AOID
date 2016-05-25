@@ -95,6 +95,8 @@ private:
 
 
 public:
+	//rect与mat比例 读图写locationincam时使用
+	float scale;
 	//输入的源图像，一般一经加载，在更换图片前都不对其进行任何操作
 	cv::Mat m_src_img;
 	//即将显示的图像

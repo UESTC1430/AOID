@@ -22,9 +22,11 @@ public:
 #endif
 #endif
 
+public:
+	virtual void OnInitialUpdate();
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
-
+	virtual void OnActivateView(BOOL bActivate, CView* pActivateView, CView* pDeactiveView);
 	DECLARE_MESSAGE_MAP()
 public:
 	CComboBox m_diskdrive;
@@ -34,19 +36,13 @@ public:
 	CListCtrl m_filenamelist;
 	CString m_pathstr;
 	CString filetype;
-	int filecount;
+	int filecount;    //主程序文件名下拉列表行数
 	CString pathandname;
 //	StyleFormat dlg;
 	afx_msg void OnSelchangeCombodrive();
 	afx_msg void OnSelchangeComboFileType();
 	afx_msg void OnDblclkListfilename(NMHDR *pNMHDR, LRESULT *pResult);
-	virtual void OnActivateView(BOOL bActivate, CView* pActivateView, CView* pDeactiveView);
-	virtual void OnInitialUpdate();
-//	void ProcessStr(CString* InputStr);
-//	void ProcessStr_AddEnter(CString* InputStr);
-//	void ProcessStr_DeleteLastEnter(CString* InputStr);
 	afx_msg void OnInport();
-	afx_msg void OnLvnItemchangedListfilename(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 

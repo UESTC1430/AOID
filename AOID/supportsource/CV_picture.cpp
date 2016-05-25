@@ -116,13 +116,14 @@ void CV_picture::ShowImage(Mat &img,int method)
 	m_dst_roi=m_dst_img(m_rect_roi);
 	m_fRoi_scale=1;
 	//图片大小相同，则直接跳过ResizeImage，将img原样复制到m_drawing减少计算量
-	if (m_dst_img.size!=m_drawing.size)
+	/*if (m_dst_img.size!=m_drawing.size)
 	{
 		ResizeImage(m_dst_img,m_rect,m_drawing,method);
 	}else
 	{
 		m_drawing=m_dst_img+0;
-	}
+	}*/
+	ResizeImage(m_dst_img,m_rect,m_drawing,method);
 
 	OnPaint();
 }
@@ -244,7 +245,7 @@ void CV_picture::ResizeImage(Mat &img,CRect rect,Mat &dst_img,int method)
 		float scale1 = (float) ( (float)w /(float)rect.Width() );
 		float scale2 = (float) ( (float)h /(float)rect.Height() );
 
-		float scale=(scale1>scale2)?scale1:scale2;
+		 scale=(scale1>scale2)?scale1:scale2;
 
 		// 缩放后图片的宽和高
 		nw = ((float)w)/scale;
@@ -539,6 +540,9 @@ void CV_picture::OnPaint()
 	CvvImage Cvvimg;
 	Cvvimg.CopyOf(drawing_ipl);
 	// 将图片绘制到显示控件的指定区域内
+	/*********///放入左上角
+	//CRect rect1 = CRect(&m_rect.TopLeft(), CSize(this->width,&m_rect.height));
+	/*********/
 	Cvvimg.DrawToHDC( hDC, &m_rect );
 
 	ReleaseDC(pDC);		//一个GetDC必须对应一个ReleaseDC，否则造成严重的内存泄露
