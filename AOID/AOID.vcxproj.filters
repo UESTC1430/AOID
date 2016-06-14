@@ -427,9 +427,6 @@
     <ClInclude Include="supportsource\CncControl.h">
       <Filter>头文件\supportsource</Filter>
     </ClInclude>
-    <ClInclude Include="supportsource\TextProgressCtrl.h">
-      <Filter>头文件\supportsource</Filter>
-    </ClInclude>
     <ClInclude Include="supportsource\MastProgInOut.h">
       <Filter>头文件\supportsource</Filter>
     </ClInclude>
@@ -441,6 +438,9 @@
     </ClInclude>
     <ClInclude Include="otheruisource\PathFunction.h">
       <Filter>头文件\otheruisource</Filter>
+    </ClInclude>
+    <ClInclude Include="supportsource\TextProgressCtrl.h">
+      <Filter>头文件\uisource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

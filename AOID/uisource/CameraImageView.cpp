@@ -48,6 +48,8 @@ BEGIN_MESSAGE_MAP(CCameraImageView, CFormView)
 	ON_WM_MBUTTONUP()
 	ON_WM_MBUTTONDOWN()
 	ON_BN_CLICKED(IDC_gettestimage, &CCameraImageView::OnBnClickedgettestimage)
+	ON_BN_CLICKED(IDC_Camera, &CCameraImageView::OnBnClickedCamera)
+	ON_BN_CLICKED(IDC_Houghline, &CCameraImageView::OnBnClickedHoughline)
 END_MESSAGE_MAP()
 
 // CCameraImageView 诊断
@@ -684,4 +686,543 @@ void CCameraImageView::OnBnClickedgettestimage()
 	//pwnd->m_imageprocess.resultimage=imread("G:/采集实图.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR);
 	//m_camimg.ShowImage(pwnd->m_imageprocess.resultimage,0);
 	DrawcvMat(pwnd->m_imageprocess.resultimage,IDC_CAMIMG,1);
+}
+
+
+void CCameraImageView::OnBnClickedCamera()
+{
+	OnCamera();
+}
+	
+int CCameraImageView::OnCamera()
+
+{
+	VideoCapture cap(0);  
+	if(!cap.isOpened())  
+	{  
+		return -1;  
+	}  
+	Mat frame;  
+	Mat edges; 
+
+	Sleep(2000);
+	while(1)  
+	{  
+		cap>>frame;  
+		cvtColor(frame, edges, CV_BGR2GRAY);  
+		GaussianBlur(edges, edges, Size(7,7), 1.5, 1.5);  
+		Canny(edges, edges, 0, 30, 3);  
+		imshow("当前视频",edges);  
+		char c = cvWaitKey(33);
+		  
+		if (c == 13)
+		{
+			CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+			edges.copyTo(pwnd-> m_imageprocess.camerafusb);
+			//Mat m_camerafusb = pwnd-> m_imageprocess.camerafusb.clone ();
+			DrawcvMat(pwnd-> m_imageprocess.camerafusb,IDC_CAMIMG,1);
+			imwrite("轮廓图.bmp",pwnd-> m_imageprocess.camerafusb);
+			break;
+			
+		}
+		if( c == 27)  break;
+
+	}  
+	cap.release();  
+	cvDestroyWindow("当前视频");  
+	return 0;  
+}
+
+void CCameraImageView::Box()
+{
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	pwnd-> m_imageprocess.camerafusb = imread("F:/AOID/AOID/长度标准件2.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR);
+	GaussianBlur(pwnd-> m_imageprocess.camerafusb,pwnd-> m_imageprocess.camerafusb, Size(7,7), 1.5, 1.5);  
+	vector<Vec4i> lines;
+	vector<Vec4i> linesout;
+	vector<vector<Point> > contours;
+	threshold(pwnd-> m_imageprocess.camerafusb,pwnd-> m_imageprocess.camerafusb,220,255,THRESH_BINARY);//二值图的生成；
+	findContours(pwnd-> m_imageprocess.camerafusb,contours,CV_RETR_LIST,CV_CHAIN_APPROX_NONE);
+	for (auto i = pwnd-> m_imageprocess.camerafusb.begin<uchar>(); i != pwnd-> m_imageprocess.camerafusb.end<uchar>(); i++)
+	{
+		*i = 0 ;
+	}
+	for (auto itVec = contours.begin() ; itVec != contours.end();)
+	{
+		if ( (*itVec).size() > 9000 || (*itVec).size() < 6000 )
+		{
+			itVec = contours.erase(itVec);
+		}
+		else
+			itVec++;
+	}
+	cvtColor(pwnd-> m_imageprocess.camerafusb, pwnd-> m_imageprocess.camerafusb, CV_GRAY2BGR);  
+
+	//最小外接矩形
+	for(int i = 0; i < contours.size(); i++)   
+	{    
+		End_Rage2D = minAreaRect(contours[i]);    //代入cvMinAreaRect2这个函数得到最小包围矩形  这里已得出被测物体的角度，宽度,高度，和中点坐标点存放在CvBox2D类型的结构体中，主要工作基本结束。  
+		DrawBox(End_Rage2D,pwnd-> m_imageprocess.camerafusb);
+
+	}  //测量175mm标准件长度为168.5mm
+	imwrite("长度标准件边长.bmp",pwnd-> m_imageprocess.camerafusb);//pwnd-> m_imageprocess.camerafusb                                               
+	DrawcvMat(pwnd-> m_imageprocess.camerafusb,IDC_CAMIMG,1);
+
+}
+
+void CCameraImageView::OnBnClickedHoughline() //斜线当作多条直线
+{
+	CMainFrame * pwnd = (CMainFrame *)AfxGetMainWnd();
+	pwnd-> m_imageprocess.camerafusb = imread("F:/AOID/AOID/长度标准件2.bmp",CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR);
+	//	"F:/AOID/AOID/无标题_cr.bmp"
+	//medianBlur(pwnd-> m_imageprocess.camerafusb,pwnd-> m_imageprocess.camerafusb,5);//中值滤波
+	GaussianBlur(pwnd-> m_imageprocess.camerafusb,pwnd-> m_imageprocess.camerafusb, Size(7,7), 1.5, 1.5);  
+	//Laplacian( pwnd-> m_imageprocess.camerafusb, pwnd-> m_imageprocess.camerafusb, CV_8U, 3, 1, 0, BORDER_DEFAULT );
+	//Canny(pwnd-> m_imageprocess.camerafusb,pwnd-> m_imageprocess.camerafusb, 20,60, 3);  
+	vector<Vec4i> lines;
+	vector<Vec4i> linesout;
+	vector<vector<Point> > contours;
+
+	threshold(pwnd-> m_imageprocess.camerafusb,pwnd-> m_imageprocess.camerafusb,220,255,THRESH_BINARY);//二值图的生成；
+	findContours(pwnd-> m_imageprocess.camerafusb,contours,CV_RETR_LIST,CV_CHAIN_APPROX_NONE);
+	for (auto i = pwnd-> m_imageprocess.camerafusb.begin<uchar>(); i != pwnd-> m_imageprocess.camerafusb.end<uchar>(); i++)
+	{
+		*i = 0 ;
+	}
+	for (auto itVec = contours.begin() ; itVec != contours.end();)
+	{
+		if ( (*itVec).size() > 9000 || (*itVec).size() < 6000 )
+		{
+			itVec = contours.erase(itVec);
+		}
+		else
+			itVec++;
+	}
+	cvtColor(pwnd-> m_imageprocess.camerafusb, pwnd-> m_imageprocess.camerafusb, CV_GRAY2BGR);  
+
+	//最小外接矩形
+	for(int i = 0; i < contours.size(); i++)   
+	{    
+		End_Rage2D = minAreaRect(contours[i]);    //代入cvMinAreaRect2这个函数得到最小包围矩形  这里已得出被测物体的角度，宽度,高度，和中点坐标点存放在CvBox2D类型的结构体中，主要工作基本结束。  
+		DrawBox(End_Rage2D,pwnd-> m_imageprocess.camerafusb);
+
+	}  //测量175mm标准件长度为168.5mm
+
+	//drawContours(pwnd-> m_imageprocess.camerafusb,contours1,-1,Scalar(255,0,0),2);
+	
+
+// 	drawContours(pwnd-> m_imageprocess.camerafusb,contours,-1,Scalar(255),2,8);
+// 
+// 	pwnd->m_imageprocess.camerafusb = thinImage(pwnd-> m_imageprocess.camerafusb,-1);
+// 	
+// 	HoughLinesP(pwnd-> m_imageprocess.camerafusb, lines, 1, CV_PI/180, 100, 100, 30 );
+// 
+// 	for (auto i = pwnd-> m_imageprocess.camerafusb.begin<uchar>(); i != pwnd-> m_imageprocess.camerafusb.end<uchar>(); i++)
+// 	{
+// 		*i = 255 ;
+// 	}
+// 	cvtColor(pwnd-> m_imageprocess.camerafusb, pwnd-> m_imageprocess.camerafusb, CV_GRAY2BGR); 
+ /*	
+	auto iter = contours1.begin();
+	while (iter != contours1.end()) 
+	{
+		if (*iter > csize)
+		{
+			++iter;
+		}
+		else 
+		{
+			iter = contours1.erase(iter);
+		}
+	}
+	*/
+
+// 	for (int i =0 ; i< lines.size(); i++)
+// 		{
+// 			float dis =  sqrt(float((lines[i][0]-lines[i][2])^2+(lines[i][1]-lines[i][3])^2));
+// 			if (lines[i][0] * lines[i][1] * lines[i][2] * lines[i][3] == 0 || lines[i][0] <= 10  )
+// 			{
+// 
+// 			} 
+// 			else
+// 			{
+// 				line( pwnd-> m_imageprocess.camerafusb, Point(lines[i][0],lines[i][1]), Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 1, 8); //CV_AA 抗锯齿
+// 			}
+// 		}
+// 	
+
+	imwrite("长度标准件边长.bmp",pwnd-> m_imageprocess.camerafusb);//pwnd-> m_imageprocess.camerafusb                                               
+	DrawcvMat(pwnd-> m_imageprocess.camerafusb,IDC_CAMIMG,1);
+	
+	//836,95   3796,104
+}
+
+//查找像素点非零邻点的个数
+int  CCameraImageView::Findn(Mat* img, int i, int j)
+{
+	CvScalar s1 = cvGet2D(img, i, j);
+	CvScalar s2 = cvGet2D(img, i - 1, j);
+	CvScalar s3 = cvGet2D(img, i - 1, j + 1);
+	CvScalar s4 = cvGet2D(img, i, j + 1);
+	CvScalar s5 = cvGet2D(img, i + 1, j + 1);
+	CvScalar s6 = cvGet2D(img, i + 1, j);
+	CvScalar s7 = cvGet2D(img, i + 1, j - 1);
+	CvScalar s8 = cvGet2D(img, i, j - 1);
+	CvScalar s9 = cvGet2D(img, i - 1, j - 1);
+	int a = s1.val[0];
+	int b = s2.val[0];
+	int c = s3.val[0];
+	int d = s4.val[0];
+	int e = s5.val[0];
+	int f = s6.val[0];
+	int g = s7.val[0];
+	int h = s8.val[0];
+	int l = s9.val[0];
+	int find[] = { a, b, c, d, e, f, g, h, l };//按8领域顺序定义数组，方便操作
+	int n = 0;
+	for (int x = 2; x < 9; ++x)
+	{
+		if (find[x] == 0 && find[x + 1] == 255)
+		{
+			n = n + 1;
+		}
+	}
+	return n;
+}
+/*
+//细化直线功能函数
+Mat* CCameraImageView::ThinImage(Mat* img, int k)
+{
+	int condition = 0;//满足的条件个数
+	int mark = 0;//成功的标志位
+	int firstN = 0;//第一个条件黑点的个数
+	CvScalar s;
+	for (int n = 0; n < k; ++n)
+	{
+		for (int i = 1; i < img->cols - 1; ++i)
+		{
+			 for (int j = 1; j < img->rows - 1;++j)
+			{//开始过程1的寻找
+				condition = 0;//初始化条件满足数
+			   //cout << "1" << endl;
+				s = cvGet2D(img, i, j);
+				if (s.val[0] == 255)//如果这是前景点，即边缘
+				 {
+					//cout << "2" << endl;
+					 //*************************第一过程*************************
+					 //*************************step1****************************
+					firstN = 0;
+					 for (int ii = -1; ii < 1; ++ii)
+					 {
+						 for (int jj = -1; jj < 1; ++jj)
+						{
+							s = cvGet2D(img, i + ii, j + jj);
+							 if (s.val[0] == 255)
+							 {
+								  firstN = firstN + 1;
+							}
+						 }
+					 }
+					 if (firstN < 3 || firstN > 7)
+					 {
+						 continue;
+					 }
+				   else
+					 {
+						condition = condition + 1;
+					 }
+     //**************************************************************
+     //*************************step2********************************
+				  if (Findn(img, i, j) != 1)
+					{
+						 continue;
+					 }
+				 else
+					{
+						condition = condition + 1;
+					}
+     //***************************************************************
+     //*************************step3*********************************
+				CvScalar s1 = cvGet2D(img, i - 1, j);
+				CvScalar s2 = cvGet2D(img, i, j + 1);
+				CvScalar s3 = cvGet2D(img, i + 1, j);
+				CvScalar s4 = cvGet2D(img, i, j - 1);
+				int a = s1.val[0];//2
+				int b = s2.val[0];//4
+				int c = s3.val[0];//6
+				int d = s4.val[0];//8
+				if (a * b * c != 0)
+				  {
+					continue;
+				  }
+				else
+				 {
+					condition = condition + 1;
+				 }
+     //******************************************************************
+     //******************************step4*******************************
+				if (b * c * d != 0)
+				  {
+					 continue;
+				  }
+				 else
+				  {
+					 condition = condition + 1;
+				  }
+     //******************************************************************
+     //第一过程的结果操作
+				 if (condition == 4)
+				  {
+					mark = 1;
+      //((char *)(img->imageData + img->widthStep * (i)))[j] = 0;
+					CvScalar p;
+					p.val[0] = 0;
+					cvSet2D(img, i, j, p);
+      //cout << "11111111111111111111111111111111111" << endl;
+				  }
+			  }
+		  }
+  	  }
+  //****************************过程2************************************
+	 for (int i = 1; i < img->cols - 1; ++i)
+	 {
+		 for (int j = 1; j < img->rows - 1;++j)
+			{//开始过程1的寻找
+			  condition = 0;//初始化条件满足数
+			 //cout << "1" << endl;
+			  s = cvGet2D(img, i, j);
+			 if (s.val[0] == 255)//如果这是前景点，即边缘
+			  {
+     //cout << "2" << endl;
+     //*************************第二过程********************************
+     //*************************step1***********************************
+				 firstN = 0;
+				 for (int ii = -1; ii < 1; ++ii)
+				{
+					 for (int jj = -1; jj < 1; ++jj)
+					 {
+						  s = cvGet2D(img, i + ii, j + jj);
+						 if (s.val[0] == 255)
+						{
+						  firstN = firstN + 1;
+						 }
+					 }
+				}
+				if (firstN < 3 || firstN > 7)
+				{
+					continue;
+				 }
+				else
+				 {
+					condition = condition + 1;
+				 }
+     //*****************************************************************
+     //*************************step2***********************************
+				 if (Findn(img, i, j) != 1)
+				{
+					 continue;
+				}
+				else
+				 {
+					 condition = condition + 1;
+				 }
+     //*****************************************************************
+     //*************************step3***********************************
+				 CvScalar s1 = cvGet2D(img, i - 1, j);
+				 CvScalar s2 = cvGet2D(img, i, j + 1);
+				 CvScalar s3 = cvGet2D(img, i + 1, j);
+				 CvScalar s4 = cvGet2D(img, i, j - 1);
+				 int a = s1.val[0];//2
+				 int b = s2.val[0];//4
+				 int c = s3.val[0];//6
+				 int d = s4.val[0];//8
+				 if (a * b * d != 0)
+				{
+				  continue;
+				}
+				else
+				{
+				  condition = condition + 1;
+			    }
+     //*******************************************************************
+     //******************************step4********************************
+				 if (a * c * d != 0)
+				 {
+				   continue;
+				 }
+				 else
+				 {
+					condition = condition + 1;
+				  }
+     //*******************************************************************
+     //第二过程的结果操作
+				 if (condition == 4)
+				 {
+					  mark = 1;
+					 //((char *)(img->imageData + img->widthStep * (i)))[j] = 0;
+					  CvScalar p;
+					  p.val[0] = 0;
+					  cvSet2D(img, i, j, p);
+					 //cout << "222222222222222222222222" << endl;
+				 }
+				}
+			}
+		}
+	 //cout << " end " << endl;
+	}
+ return img;
+}
+*/
+Mat CCameraImageView::thinImage(const Mat & src, const int maxIterations = -1)  
+{  
+	assert(src.type() == CV_8UC1);  
+	cv::Mat dst;  
+	int width  = src.cols;  
+	int height = src.rows;  
+	src.copyTo(dst);  
+	int count = 0;  //记录迭代次数  
+	while (true)  
+	{  
+		count++;  
+		if (maxIterations != -1 && count > maxIterations) //限制次数并且迭代次数到达  
+			break;  
+		std::vector<uchar *> mFlag; //用于标记需要删除的点  
+		//对点标记  
+		for (int i = 0; i < height ;++i)  
+		{  
+			uchar * p = dst.ptr<uchar>(i);  
+			for (int j = 0; j < width; ++j)  
+			{  
+				//如果满足四个条件，进行标记  
+				//  p9 p2 p3  
+				//  p8 p1 p4  
+				//  p7 p6 p5  
+				uchar p1 = p[j];  
+				if (p1 != 1) continue;  
+				uchar p4 = (j == width - 1) ? 0 : *(p + j + 1);  
+				uchar p8 = (j == 0) ? 0 : *(p + j - 1);  
+				uchar p2 = (i == 0) ? 0 : *(p - dst.step + j);  
+				uchar p3 = (i == 0 || j == width - 1) ? 0 : *(p - dst.step + j + 1);  
+				uchar p9 = (i == 0 || j == 0) ? 0 : *(p - dst.step + j - 1);  
+				uchar p6 = (i == height - 1) ? 0 : *(p + dst.step + j);  
+				uchar p5 = (i == height - 1 || j == width - 1) ? 0 : *(p + dst.step + j + 1);  
+				uchar p7 = (i == height - 1 || j == 0) ? 0 : *(p + dst.step + j - 1);  
+				if ((p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9) >= 2 && (p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9) <= 6)  
+				{  
+					int ap = 0;  
+					if (p2 == 0 && p3 == 1) ++ap;  
+					if (p3 == 0 && p4 == 1) ++ap;  
+					if (p4 == 0 && p5 == 1) ++ap;  
+					if (p5 == 0 && p6 == 1) ++ap;  
+					if (p6 == 0 && p7 == 1) ++ap;  
+					if (p7 == 0 && p8 == 1) ++ap;  
+					if (p8 == 0 && p9 == 1) ++ap;  
+					if (p9 == 0 && p2 == 1) ++ap;  
+
+					if (ap == 1 && p2 * p4 * p6 == 0 && p4 * p6 * p8 == 0)  
+					{  
+						//标记  
+						mFlag.push_back(p+j);  
+					}  
+				}  
+			}  
+		}  
+
+		//将标记的点删除  
+		for (std::vector<uchar *>::iterator i = mFlag.begin(); i != mFlag.end(); ++i)  
+		{  
+			**i = 0;  
+		}  
+
+		//直到没有点满足，算法结束  
+		if (mFlag.empty())  
+		{  
+			break;  
+		}  
+		else  
+		{  
+			mFlag.clear();//将mFlag清空  
+		}  
+
+		//对点标记  
+		for (int i = 0; i < height; ++i)  
+		{  
+			uchar * p = dst.ptr<uchar>(i);  
+			for (int j = 0; j < width; ++j)  
+			{  
+				//如果满足四个条件，进行标记  
+				//  p9 p2 p3  
+				//  p8 p1 p4  
+				//  p7 p6 p5  
+				uchar p1 = p[j];  
+				if (p1 != 1) continue;  
+				uchar p4 = (j == width - 1) ? 0 : *(p + j + 1);  
+				uchar p8 = (j == 0) ? 0 : *(p + j - 1);  
+				uchar p2 = (i == 0) ? 0 : *(p - dst.step + j);  
+				uchar p3 = (i == 0 || j == width - 1) ? 0 : *(p - dst.step + j + 1);  
+				uchar p9 = (i == 0 || j == 0) ? 0 : *(p - dst.step + j - 1);  
+				uchar p6 = (i == height - 1) ? 0 : *(p + dst.step + j);  
+				uchar p5 = (i == height - 1 || j == width - 1) ? 0 : *(p + dst.step + j + 1);  
+				uchar p7 = (i == height - 1 || j == 0) ? 0 : *(p + dst.step + j - 1);  
+
+				if ((p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9) >= 2 && (p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9) <= 6)  
+				{  
+					int ap = 0;  
+					if (p2 == 0 && p3 == 1) ++ap;  
+					if (p3 == 0 && p4 == 1) ++ap;  
+					if (p4 == 0 && p5 == 1) ++ap;  
+					if (p5 == 0 && p6 == 1) ++ap;  
+					if (p6 == 0 && p7 == 1) ++ap;  
+					if (p7 == 0 && p8 == 1) ++ap;  
+					if (p8 == 0 && p9 == 1) ++ap;  
+					if (p9 == 0 && p2 == 1) ++ap;  
+
+					if (ap == 1 && p2 * p4 * p8 == 0 && p2 * p6 * p8 == 0)  
+					{  
+						//标记  
+						mFlag.push_back(p+j);  
+					}  
+				}  
+			}  
+		}  
+
+		//将标记的点删除  
+		for (std::vector<uchar *>::iterator i = mFlag.begin(); i != mFlag.end(); ++i)  
+		{  
+			**i = 0;  
+		}  
+
+		//直到没有点满足，算法结束  
+		if (mFlag.empty())  
+		{  
+			break;  
+		}  
+		else  
+		{  
+			mFlag.clear();//将mFlag清空  
+		}  
+	}  
+	return dst;  
+}  
+
+void CCameraImageView::DrawBox(CvBox2D box,Mat img)
+{
+	CvPoint2D32f point[4]; 
+	int i; 
+	for ( i=0; i<4; i++) 
+	{ 
+		point[i].x = 0; 
+		point[i].y = 0; 
+	} 
+	cvBoxPoints(box, point); //计算二维盒子顶点 
+	CvPoint pt[4]; 
+	for ( i=0; i<4; i++) 
+	{ 
+		pt[i].x = (int)point[i].x; 
+		pt[i].y = (int)point[i].y; 
+	} 
+	line( img, pt[0], pt[1], Scalar(0,0,255), 1, 8 ); 
+	line( img, pt[1], pt[2], Scalar(0,0,255), 1, 8 ); 
+	line( img, pt[2], pt[3], Scalar(0,0,255), 1, 8 ); 
+	line( img, pt[3], pt[0], Scalar(0,0,255), 1, 8 ); 
 }

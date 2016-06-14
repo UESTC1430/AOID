@@ -15,6 +15,7 @@ public:
 	vector<vector<Point> > contours;
 	vector<vector<Point> > contours_temp;
 	int num;
+	Mat camerafusb;
 	Mat resultimage;
 	Mat cut_1;
 	Mat rotateimage;

@@ -51,6 +51,7 @@ public:
 	CRect rectcam;
 	CDC *m_rectcam;
 	float camscale;//实际尺寸与像素尺寸间的缩放比例
+	RotatedRect     End_Rage2D; //轮廓最小外接矩形参数  
 	
 	vector<vector<Point> > contours1;
 	//**************************
@@ -101,6 +102,22 @@ public:
 	bool ProgressInRectCam(CPoint start,CPoint end);
 	bool GetSelectCircleCam(int x, int y);//根据x，y值求选中行
 	afx_msg void OnBnClickedgettestimage();
+	afx_msg void OnBnClickedCamera();
+	int OnCamera();
+	afx_msg void OnBnClickedHoughline();
+	int Findn(Mat * img, int i, int j);//查找像素点非零邻点的个数
+	//Mat * ThinImage(Mat * img, int k); //细化直线功能函数
+	/** 
+ * @brief 对输入图像进行细化 
+ * @param src为输入图像,用cvThreshold函数处理过的8位灰度图像格式，元素中只有0与1,1代表有元素，0代表为空白 
+ * @param maxIterations限制迭代次数，如果不进行限制，默认为-1，代表不限制迭代次数，直到获得最终结果 
+ * @return 为对src细化后的输出图像,格式与src格式相同，元素中只有0与1,1代表有元素，0代表为空白 
+ */  
+	Mat thinImage(const Mat & src, const int maxIterations );
+	//轮廓最小外接矩形识别直线
+	void Box();
+	//画轮廓最小外接矩形
+	void DrawBox(CvBox2D box,Mat img);
 };
 
 
